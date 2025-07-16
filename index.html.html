@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy Portfolio: Zenless Zone Zero - Mohamad Abrur Alaina</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Anton:wght@400&family=Teko:wght@700&display=swap" rel="stylesheet">
+    <!-- Icons (Font Awesome for retro icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --yellow: #FFDE00;
+            --magenta: #FF00C1;
+            --cyan: #00F6FF;
+            --black: #000000;
+            --white: #fff;
+            --scanline: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.03) 0px,
+                rgba(255,255,255,0.03) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+            --hazard-stripes: repeating-linear-gradient(
+                135deg,
+                var(--yellow) 0 10px,
+                var(--black) 10px 20px
+            );
+            --crt-radius: 28px;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: var(--black);
+            color: var(--white);
+            font-family: 'Barlow Condensed', 'Teko', 'Anton', Arial, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        /* Background Video/Animation Layer */
+        body::before {
+            content: "";
+            position: fixed;
+            z-index: -2;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://github.com/aabrur/my-portfolio-assets/blob/main/zzz-bg-city.gif?raw=true') center center/cover no-repeat;
+            opacity: 0.85;
+            animation: bg-flicker 6s infinite alternate;
+        }
+        @keyframes bg-flicker {
+            0%, 100% { filter: brightness(1) contrast(1); }
+            10% { filter: brightness(1.05) contrast(1.1) saturate(1.1); }
+            20% { filter: brightness(0.98) contrast(1.2) saturate(1.2); }
+            50% { filter: brightness(1.1) contrast(1.05) saturate(1.05); }
+            70% { filter: brightness(0.95) contrast(1.15) saturate(1.15); }
+        }
+        /* Parallax Layer for Content */
+        #parallax-content {
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+            transition: transform 0.5s cubic-bezier(.25,1.5,.5,1);
+        }
+        /* Scanlines Overlay */
+        .scanlines {
+            position: absolute;
+            pointer-events: none;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--scanline);
+            z-index: 2;
+            border-radius: var(--crt-radius);
+            mix-blend-mode: lighten;
+        }
+        /* Hazard Stripes */
+        .hazard-stripes {
+            background: var(--hazard-stripes);
+            height: 8px;
+            width: 100%;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px #000a;
+        }
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            color: var(--yellow);
+            font-family: 'Anton', 'Teko', Arial, sans-serif;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-shadow:
+                2px 0 var(--magenta),
+                -2px 0 var(--cyan),
+                0 2px var(--yellow);
+            animation: glitch-anim 1.2s infinite linear alternate-reverse;
+            user-select: none;
+        }
+        @keyframes glitch-anim {
+            0% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
+            20% { text-shadow: 4px 2px var(--magenta), -3px -1px var(--cyan), 0 2px var(--yellow);}
+            40% { text-shadow: 1px -2px var(--magenta), -1px 2px var(--cyan), 0 2px var(--yellow);}
+            60% { text-shadow: 3px 1px var(--magenta), -4px 0 var(--cyan), 0 2px var(--yellow);}
+            80% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
+            100% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
+        }
+        /* Animated Border (Profile) */
+        .profile-frame {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+            background: #111;
+            box-shadow: 0 0 32px 4px var(--magenta), 0 0 0 8px #000;
+            overflow: visible;
+        }
+        .profile-frame::before {
+            content: "";
+            position: absolute;
+            inset: -8px;
+            border: 4px solid var(--cyan);
+            border-radius: 24px;
+            filter: blur(1.5px);
+            opacity: 0.7;
+            animation: border-glitch 1.5s infinite steps(2, end);
+            pointer-events: none;
+            z-index: 2;
+            clip-path: inherit;
+        }
+        @keyframes border-glitch {
+            0%, 100% { border-color: var(--cyan);}
+            20% { border-color: var(--magenta);}
+            40% { border-color: var(--yellow);}
+            60% { border-color: var(--cyan);}
+            80% { border-color: var(--magenta);}
+        }
+        .profile-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+            filter: contrast(1.1) brightness(1.1) saturate(1.2);
+            z-index: 1;
+            clip-path: inherit;
+            transition: filter 0.2s;
+        }
+        .profile-frame:hover img {
+            filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);
+            animation: img-glitch 0.3s steps(2, end) infinite;
+        }
+        @keyframes img-glitch {
+            0% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
+            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg);}
+            100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
+        }
+        /* Header Section */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 48px 8vw 32px 8vw;
+            position: relative;
+            z-index: 2;
+        }
+        .header-content {
+            flex: 1 1 320px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 18px;
+        }
+        .header-lines {
+            position: absolute;
+            left: 220px;
+            top: 80px;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--yellow));
+            z-index: 1;
+            animation: header-line-glitch 1.2s infinite alternate;
+        }
+        @keyframes header-line-glitch {
+            0%, 100% { filter: blur(0.5px);}
+            50% { filter: blur(2px);}
+        }
+        .tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .tag {
+            background: var(--yellow);
+            color: var(--black);
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 6px 18px;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px #000a;
+            margin-bottom: 4px;
+            opacity: 0;
+            transform: translateY(20px) scale(0.9) skewX(-8deg);
+            animation: tag-appear 0.5s forwards;
+            animation-delay: var(--delay, 0s);
+            border: 2px solid var(--magenta);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 1px 1px 0 var(--white), 0 0 4px var(--magenta);
+        }
+        .tag:nth-child(2) { background: var(--magenta); color: var(--white); border-color: var(--yellow); animation-delay: 0.25s;}
+        .tag:nth-child(3) { background: var(--cyan); color: var(--black); border-color: var(--magenta); animation-delay: 0.5s;}
+        @keyframes tag-appear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) skewX(0);
+            }
+        }
+        /* Manifesto Section */
+        .crt-panel {
+            background: #181a1f;
+            border-radius: var(--crt-radius);
+            box-shadow: 0 0 32px 4px #000a, 0 0 0 8px var(--magenta);
+            margin: 0 auto 48px auto;
+            max-width: 1100px;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--cyan);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .crt-panel .scanlines {
+            z-index: 3;
+        }
+        .crt-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .crt-col {
+            flex: 1 1 320px;
+            min-width: 320px;
+            padding: 32px 32px 32px 32px;
+            font-size: 1.1rem;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            color: var(--white);
+            position: relative;
+        }
+        .crt-col:not(:last-child) {
+            border-right: 2px solid var(--yellow);
+        }
+        .crt-title {
+            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-size: 1.6rem;
+            color: var(--magenta);
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 var(--yellow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .crt-title i {
+            color: var(--yellow);
+            font-size: 1.2em;
+        }
+        .crt-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .crt-list li {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            color: var(--cyan);
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 0 var(--black);
+            position: relative;
+        }
+        .crt-list li .chevron {
+            color: var(--yellow);
+            font-size: 1.3em;
+            margin-right: 10px;
+            animation: chevron-blink 1s infinite alternate;
+            filter: drop-shadow(0 0 2px var(--yellow));
+        }
+        @keyframes chevron-blink {
+            0%, 100% { opacity: 1;}
+            50% { opacity: 0.4;}
+        }
+        /* Case Files Archive */
+        .case-archive {
+            max-width: 1200px;
+            margin: 0 auto 64px auto;
+            padding: 0 8vw;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        .case-card {
+            background: #181a1f;
+            border-radius: 18px;
+            box-shadow: 0 0 24px 2px #000a, 0 0 0 4px var(--magenta);
+            width: 260px;
+            min-height: 340px;
+            position: relative;
+            overflow: visible;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(.25,1.5,.5,1), box-shadow 0.18s;
+            will-change: transform;
+            border: 3px solid var(--yellow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 24px;
+            perspective: 900px;
+        }
+        .case-card:hover {
+            transform: rotateY(-8deg) scale(1.06) translateY(-8px);
+            box-shadow: 0 0 48px 8px var(--magenta), 0 0 0 8px var(--yellow);
+            z-index: 3;
+            animation: card-bounce 0.3s cubic-bezier(.25,1.5,.5,1);
+        }
+        @keyframes card-bounce {
+            0% { transform: scale(1) rotateY(0);}
+            50% { transform: scale(1.08) rotateY(-10deg);}
+            100% { transform: scale(1.06) rotateY(-8deg);}
+        }
+        .case-img-wrap {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+            background: #222;
+            position: relative;
+            border-bottom: 2px solid var(--magenta);
+        }
+        .case-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.1) brightness(1.1) saturate(1.2);
+            transition: filter 0.2s;
+            z-index: 1;
+            position: relative;
+        }
+        .case-card:hover .case-img {
+            animation: vhs-static 0.4s steps(2, end) infinite;
+            filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);
+        }
+        @keyframes vhs-static {
+            0% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
+            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg);}
+            100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
+        }
+        .case-title {
+            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-size: 1.3rem;
+            color: var(--magenta);
+            background: rgba(0,0,0,0.7);
+            padding: 8px 16px;
+            border-radius: 10px;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+            font-style: italic;
+            text-shadow: 2px 2px 0 var(--yellow), 0 0 8px var(--magenta);
+            border: 2px solid var(--yellow);
+            box-shadow: 0 2px 8px #000a;
+            font-weight: bold;
+            pointer-events: none;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            font-family: 'Teko', Arial, sans-serif;
+        }
+        .case-tag {
+            background: var(--cyan);
+            color: var(--black);
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 0.95rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            z-index: 2;
+            border: 2px solid var(--magenta);
+            box-shadow: 0 2px 8px #000a;
+            font-weight: bold;
+            pointer-events: none;
+            text-shadow: 1px 1px 0 var(--white);
+        }
+        .case-card .case-graffiti {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-family: 'Anton', 'Teko', Arial, sans-serif;
+            font-size: 2.2rem;
+            color: var(--magenta);
+            opacity: 0.18;
+            transform: rotate(-18deg);
+            pointer-events: none;
+            z-index: 1;
+            text-shadow: 2px 2px 0 var(--yellow);
+            letter-spacing: 2px;
+        }
+        /* Fullscreen Modal for Case Details */
+        .case-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000d;
+            align-items: center;
+            justify-content: center;
+            animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1);
+        }
+        .case-modal.active {
+            display: flex;
+            animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1);
+        }
+        @keyframes tv-static-in {
+            0% { opacity: 0; filter: blur(16px) grayscale(1);}
+            60% { opacity: 1; filter: blur(2px) grayscale(0.5);}
+            100% { opacity: 1; filter: blur(0) grayscale(0);}
+        }
+        .modal-content {
+            background: #181a1f;
+            border-radius: 24px;
+            box-shadow: 0 0 64px 8px var(--magenta), 0 0 0 8px var(--yellow);
+            padding: 48px 32px 32px 32px;
+            max-width: 520px;
+            width: 90vw;
+            position: relative;
+            border: 4px solid var(--cyan);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: modal-glitch 0.4s;
+        }
+        @keyframes modal-glitch {
+            0% { filter: blur(8px) grayscale(1);}
+            100% { filter: blur(0) grayscale(0);}
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 16px #000a;
+            border: 2px solid var(--magenta);
+        }
+        .modal-title {
+            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-size: 2rem;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0 var(--magenta), 0 0 8px var(--yellow);
+            letter-spacing: 2px;
+        }
+        .modal-tag {
+            background: var(--cyan);
+            color: var(--black);
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1rem;
+            padding: 4px 14px;
+            border-radius: 12px;
+            border: 2px solid var(--magenta);
+            font-weight: bold;
+            margin-bottom: 18px;
+            text-shadow: 1px 1px 0 var(--white);
+        }
+        .modal-desc {
+            color: var(--white);
+            font-size: 1.1rem;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            font-size: 2rem;
+            color: var(--magenta);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 2;
+            font-family: inherit;
+        }
+        .modal-close:hover {
+            color: var(--yellow);
+            text-shadow: 0 0 8px var(--magenta);
+        }
+        /* Agent Loadout / Plug-ins */
+        .loadout-section {
+            max-width: 1100px;
+            margin: 0 auto 64px auto;
+            padding: 0 8vw;
+            position: relative;
+            z-index: 2;
+        }
+        .loadout-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        .loadout-module {
+            background: #181a1f;
+            border-radius: 18px;
+            box-shadow: 0 0 24px 2px #000a, 0 0 0 4px var(--magenta);
+            border: 3px solid var(--yellow);
+            width: 320px;
+            min-height: 180px;
+            padding: 24px 24px 18px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+        .loadout-title {
+            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-size: 1.3rem;
+            color: var(--cyan);
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 var(--yellow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .loadout-title i {
+            color: var(--magenta);
+            font-size: 1.2em;
+        }
+        .skill-list {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .skill-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            gap: 10px;
+        }
+        .skill-icon {
+            font-size: 1.3em;
+            color: var(--yellow);
+            filter: drop-shadow(0 0 2px var(--yellow));
+            margin-right: 6px;
+        }
+        .skill-bar-wrap {
+            flex: 1;
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 16px;
+            margin-left: 8px;
+            border: 2px solid var(--magenta);
+            box-shadow: 0 2px 8px #000a;
+            position: relative;
+        }
+        .skill-bar {
+            height: 100%;
+            width: 0;
+            background: var(--hazard-stripes);
+            border-radius: 8px;
+            transition: width 1.2s cubic-bezier(.25,1.5,.5,1);
+            box-shadow: 0 0 8px var(--yellow);
+            position: absolute;
+            left: 0; top: 0;
+        }
+        /* Contact Section */
+        .contact-section {
+            max-width: 700px;
+            margin: 0 auto 64px auto;
+            padding: 0 8vw;
+            position: relative;
+            z-index: 2;
+            background: #181a1f;
+            border-radius: 24px;
+            box-shadow: 0 0 32px 4px #000a, 0 0 0 8px var(--magenta);
+            border: 3px solid var(--cyan);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+        .contact-title {
+            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-size: 1.6rem;
+            color: var(--yellow);
+            margin: 32px 0 18px 0;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 var(--magenta);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contact-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin: 32px 0 48px 0;
+            justify-content: center;
+        }
+        .contact-btn {
+            background: var(--yellow);
+            color: var(--black);
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 18px 32px;
+            border-radius: 18px;
+            border: 3px solid var(--magenta);
+            box-shadow: 0 2px 8px #000a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.12s cubic-bezier(.25,1.5,.5,1), box-shadow 0.12s, border-color 0.12s;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            user-select: none;
+            animation: btn-glitch 1.2s infinite alternate;
+        }
+        .contact-btn:active {
+            transform: scale(0.93);
+            box-shadow: 0 0 24px 4px var(--magenta);
+            border-color: var(--cyan);
+            animation: btn-bounce 0.18s cubic-bezier(.25,1.5,.5,1);
+        }
+        @keyframes btn-bounce {
+            0% { transform: scale(1);}
+            50% { transform: scale(0.89);}
+            100% { transform: scale(0.93);}
+        }
+        @keyframes btn-glitch {
+            0%, 100% { filter: none;}
+            40% { filter: hue-rotate(10deg) brightness(1.1);}
+            60% { filter: hue-rotate(-10deg) brightness(1.2);}
+        }
+        .contact-btn i {
+            font-size: 1.5em;
+            color: var(--magenta);
+            filter: drop-shadow(0 0 2px var(--magenta));
+        }
+        /* Graffiti/Sticker Style */
+        .graffiti {
+            font-family: 'Anton', 'Teko', Arial, sans-serif;
+            font-size: 2.2rem;
+            color: var(--magenta);
+            opacity: 0.22;
+            transform: rotate(-8deg);
+            pointer-events: none;
+            z-index: 1;
+            text-shadow: 2px 2px 0 var(--yellow);
+            letter-spacing: 2px;
+            position: absolute;
+            right: 24px;
+            top: 12px;
+            user-select: none;
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+                padding: 32px 4vw 24px 4vw;
+            }
+            .header-lines { display: none; }
+            .crt-panel { flex-direction: column; }
+            .crt-content { flex-direction: column; }
+            .crt-col:not(:last-child) { border-right: none; border-bottom: 2px solid var(--yellow);}
+            .case-archive { gap: 18px; }
+            .case-card { width: 98vw; max-width: 340px;}
+            .loadout-grid { gap: 18px;}
+            .loadout-module { width: 98vw; max-width: 340px;}
+        }
+        @media (max-width: 600px) {
+            .crt-panel, .loadout-section, .contact-section { padding: 0 2vw;}
+            .crt-col, .loadout-module { padding: 18px 8px;}
+            .case-card { min-height: 260px;}
+            .modal-content { padding: 24px 8px;}
+        }
+    </style>
+</head>
+<body>
+    <div id="parallax-content">
+        <!-- HEADER -->
+        <header>
+            <div class="profile-frame">
+                <img src="https://github.com/aabrur/my-portfolio-assets/blob/main/Photo%20Profile%20(ZZZ).png?raw=true" alt="Proxy Profile">
+            </div>
+            <div class="header-content">
+                <div class="hazard-stripes"></div>
+                <h1 class="glitch">AGENT ACCESS: ABRUR ALAINA</h1>
+                <div class="tags">
+                    <span class="tag">[TAG: AI ARTIST]</span>
+                    <span class="tag">[TAG: CREATIVE TECHNOLOGIST]</span>
+                    <span class="tag">[TAG: CULTURAL INTEGRATOR]</span>
+                </div>
+            </div>
+            <div class="header-lines"></div>
+        </header>
+        <!-- MANIFESTO / PROXY DATA LOG -->
+        <section class="crt-panel" style="margin-bottom: 64px; position: relative;">
+            <div class="scanlines"></div>
+            <h2 class="crt-title" style="margin: 32px 0 0 32px;"><i class="fa-solid fa-database"></i>// PROXY DATA LOG: ACTIVE</h2>
+            <div class="crt-content">
+                <div class="crt-col">
+                    <div class="crt-title"><i class="fa-solid fa-id-card"></i>AGENT DOSSIER</div>
+                    <div>
+                        An operative with a multidisciplinary profile, functioning at the nexus of AI deployment, digital asset creation, and cultural synthesis. Field agent active in converting abstract intel into high-fidelity visual assets. Specializes in integrating grassroots intelligence with future-forward tech. Core belief: genuine advancement is forged from street-level reality, executed with surgical precision, and guided by a deep-coded moral framework.
+                    </div>
+                </div>
+                <div class="crt-col">
+                    <div class="crt-title"><i class="fa-solid fa-code-branch"></i>CORE PROTOCOLS</div>
+                    <ul class="crt-list">
+                        <li><span class="chevron">&gt;&gt;</span>Bottom-Up Innovation // Forged on the Streets</li>
+                        <li><span class="chevron">&gt;&gt;</span>Bridging Legacy Systems &amp; The New Age</li>
+                        <li><span class="chevron">&gt;&gt;</span>Driven by Faith // Executed by Science</li>
+                        <li><span class="chevron">&gt;&gt;</span>Directive: Culture is the Ultimate National Asset</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- CASE FILES ARCHIVE -->
+        <section>
+            <h2 class="crt-title" style="margin-left: 8vw; margin-bottom: 24px;"><i class="fa-solid fa-folder-open"></i>// CASE FILES: ARCHIVE_</h2>
+            <div class="case-archive">
+                <!-- CASE CARD 1 -->
+                <div class="case-card" data-title="Character Concept: ARIA &amp; Kael" data-tag="AI Art" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true" data-desc="Original character concept art for ARIA &amp; Kael, blending AI-driven illustration with ZZZ-inspired urban motifs.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true" alt="ARIA & Kael">
+                        <div class="case-title">ARIA &amp; Kael</div>
+                        <div class="case-tag">AI Art</div>
+                    </div>
+                    <div class="case-graffiti">#001</div>
+                </div>
+                <!-- CASE CARD 2 -->
+                <div class="case-card" data-title="AI Fashion Collection" data-tag="AI Art / LoRA" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true" data-desc="A collection of AI-generated fashion concepts using LoRA, fusing streetwear with digital aesthetics.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true" alt="AI Fashion Collection">
+                        <div class="case-title">AI Fashion Collection</div>
+                        <div class="case-tag">AI Art / LoRA</div>
+                    </div>
+                    <div class="case-graffiti">#002</div>
+                </div>
+                <!-- CASE CARD 3 -->
+                <div class="case-card" data-title="R&amp;D: Biomechanical Botany" data-tag="Creative R&amp;D" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" data-desc="Experimental research visuals exploring the intersection of botany and biomechanical design.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" alt="Biomechanical Botany">
+                        <div class="case-title">Biomechanical Botany</div>
+                        <div class="case-tag">Creative R&amp;D</div>
+                    </div>
+                    <div class="case-graffiti">#003</div>
+                </div>
+                <!-- CASE CARD 4 -->
+                <div class="case-card" data-title="The Holy Grail Workflow" data-tag="AI Workflow" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" data-desc="A visual breakdown of the 'Holy Grail' workflow for AI-powered creative production.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" alt="Holy Grail Workflow">
+                        <div class="case-title">Holy Grail Workflow</div>
+                        <div class="case-tag">AI Workflow</div>
+                    </div>
+                    <div class="case-graffiti">#004</div>
+                </div>
+                <!-- CASE CARD 5 -->
+                <div class="case-card" data-title="GAAN - Social QR Game" data-tag="App Concept" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" data-desc="Concept for a social QR-based game, blending urban exploration with digital play.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" alt="GAAN QR Game">
+                        <div class="case-title">GAAN - Social QR Game</div>
+                        <div class="case-tag">App Concept</div>
+                    </div>
+                    <div class="case-graffiti">#005</div>
+                </div>
+                <!-- CASE CARD 6 -->
+                <div class="case-card" data-title="GS Shoes - Ghalen Swivel" data-tag="Brand Creator" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" data-desc="Branding and concept visuals for GS Shoes: Ghalen Swivel, inspired by ZZZ's street-tech style.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" alt="GS Shoes">
+                        <div class="case-title">GS Shoes - Ghalen Swivel</div>
+                        <div class="case-tag">Brand Creator</div>
+                    </div>
+                    <div class="case-graffiti">#006</div>
+                </div>
+            </div>
+        </section>
+        <!-- CASE MODAL -->
+        <div class="case-modal" id="caseModal">
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+                <img id="modalImg" src="" alt="">
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-tag" id="modalTag"></div>
+                <div class="modal-desc" id="modalDesc"></div>
+            </div>
+        </div>
+        <!-- AGENT LOADOUT / PLUG-INS -->
+        <section class="loadout-section">
+            <h2 class="crt-title"><i class="fa-solid fa-plug"></i>// AGENT LOADOUT: PLUG-INS_EQUIPPED</h2>
+            <div class="loadout-grid">
+                <!-- AI Module -->
+                <div class="loadout-module">
+                    <div class="loadout-title"><i class="fa-solid fa-brain"></i>AI</div>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-robot"></i></span>AI Art Generation
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="95"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt Engineering
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="92"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-brain"></i></span>AI Model Tuning
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="88"></div></div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Technical Module -->
+                <div class="loadout-module">
+                    <div class="loadout-title"><i class="fa-solid fa-microchip"></i>Technical</div>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-code"></i></span>Web Development
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-database"></i></span>Data Engineering
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="80"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-network-wired"></i></span>API Integration
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="83"></div></div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Operational Module -->
+                <div class="loadout-module">
+                    <div class="loadout-title"><i class="fa-solid fa-screwdriver-wrench"></i>Operational</div>
+                    <ul class="skill-list">
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-users"></i></span>Team Leadership
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="90"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-lightbulb"></i></span>Creative Direction
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="93"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-handshake"></i></span>Stakeholder Engagement
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="87"></div></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- CONTACT / COMMS-LINK -->
+        <section class="contact-section">
+            <div class="scanlines"></div>
+            <h2 class="contact-title"><i class="fa-solid fa-satellite-dish"></i>// ESTABLISH COMMS-LINK: OPEN_CHANNEL</h2>
+            <div class="contact-links">
+                <a class="contact-btn" href="https://www.linkedin.com/in/mohamad-abrur" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
+                <a class="contact-btn" href="https://github.com/aabrur" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
+                <a class="contact-btn" href="https://huggingface.co/aabrur" target="_blank" rel="noopener"><i class="fab fa-hubspot"></i>Hugging Face</a>
+                <a class="contact-btn" href="mailto:abrur_nic@yahoo.com"><i class="fa-solid fa-envelope"></i>Email</a>
+            </div>
+        </section>
+        <div class="graffiti">CUNNING HARES // NEW ERIDU</div>
+    </div>
+    <!-- SCRIPTS -->
+    <audio id="beep" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae7b2.mp3" preload="auto"></audio>
+    <audio id="static" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9e2e7c.mp3" preload="auto"></audio>
+    <script>
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            const y = window.scrollY;
+            document.getElementById('parallax-content').style.transform = `translateY(${y * 0.15}px)`;
+        });
+
+        // Screen shake on hover for important elements
+        function addScreenShake(selector) {
+            document.querySelectorAll(selector).forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    document.body.style.transition = 'transform 0.1s';
+                    document.body.style.transform = 'translate(' + (Math.random()*8-4) + 'px,' + (Math.random()*8-4) + 'px)';
+                    setTimeout(() => { document.body.style.transform = ''; }, 120);
+                });
+            });
+        }
+        addScreenShake('.profile-frame, .case-card, .contact-btn');
+
+        // Tag typing animation (already handled by CSS animation-delay)
+
+        // CASE MODAL LOGIC
+        const modal = document.getElementById('caseModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalTag = document.getElementById('modalTag');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalClose = document.getElementById('modalClose');
+        const staticAudio = document.getElementById('static');
+
+        document.querySelectorAll('.case-card').forEach(card => {
+            card.addEventListener('click', () => {
+                modalImg.src = card.getAttribute('data-img');
+                modalTitle.textContent = card.getAttribute('data-title');
+                modalTag.textContent = card.getAttribute('data-tag');
+                modalDesc.textContent = card.getAttribute('data-desc');
+                modal.classList.add('active');
+                staticAudio.currentTime = 0;
+                staticAudio.play();
+            });
+        });
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+            staticAudio.pause();
+            staticAudio.currentTime = 0;
+        });
+        modal.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                staticAudio.pause();
+                staticAudio.currentTime = 0;
+            }
+        });
+
+        // Skill bar animation on scroll
+        function animateSkillBars() {
+            document.querySelectorAll('.skill-bar').forEach(bar => {
+                const rect = bar.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 40) {
+                    bar.style.width = bar.getAttribute('data-skill') + '%';
+                }
+            });
+        }
+        window.addEventListener('scroll', animateSkillBars);
+        window.addEventListener('load', animateSkillBars);
+
+        // Contact button bounce and beep
+        const beepAudio = document.getElementById('beep');
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                beepAudio.currentTime = 0;
+                beepAudio.play();
+            });
+        });
+
+        // Glitch transition on scroll between sections
+        let lastSection = null;
+        function glitchTransition() {
+            const sections = document.querySelectorAll('section');
+            let found = null;
+            for (let s of sections) {
+                const rect = s.getBoundingClientRect();
+                if (rect.top < window.innerHeight/2 && rect.bottom > 0) {
+                    found = s;
+                }
+            }
+            if (found && found !== lastSection) {
+                found.classList.add('glitching');
+                setTimeout(() => found.classList.remove('glitching'), 400);
+                lastSection = found;
+            }
+        }
+        window.addEventListener('scroll', glitchTransition);
+
+        // Add glitching style
+        const style = document.createElement('style');
+        style.innerHTML = `
+            section.glitching, .crt-panel.glitching, .contact-section.glitching {
+                filter: contrast(1.2) brightness(1.2) hue-rotate(10deg) blur(1.5px) grayscale(0.2);
+                animation: section-glitch 0.4s;
+            }
+            @keyframes section-glitch {
+                0% { filter: blur(8px) grayscale(1);}
+                100% { filter: contrast(1.2) brightness(1.2) hue-rotate(10deg) blur(1.5px) grayscale(0.2);}
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
