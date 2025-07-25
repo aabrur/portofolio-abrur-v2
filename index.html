@@ -29,7 +29,11 @@
             );
             --crt-radius: 28px;
         }
-        html, body {
+        /* Enable smooth scrolling across the page */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
             margin: 0;
             padding: 0;
             background: var(--black);
@@ -166,6 +170,7 @@
             padding: 48px 8vw 32px 8vw;
             position: relative;
             z-index: 2;
+            margin-top: 60px; /* Adjust for fixed navigation */
         }
         .header-content {
             flex: 1 1 320px;
@@ -409,20 +414,6 @@
             pointer-events: none;
             text-shadow: 1px 1px 0 var(--white);
         }
-        .case-card .case-graffiti {
-            position: absolute;
-            right: 10px;
-            bottom: 10px;
-            font-family: 'Anton', 'Teko', Arial, sans-serif;
-            font-size: 2.2rem;
-            color: var(--magenta);
-            opacity: 0.18;
-            transform: rotate(-18deg);
-            pointer-events: none;
-            z-index: 1;
-            text-shadow: 2px 2px 0 var(--yellow);
-            letter-spacing: 2px;
-        }
         /* Fullscreen Modal for Case Details */
         .case-modal {
             display: none;
@@ -456,6 +447,8 @@
             flex-direction: column;
             align-items: center;
             animation: modal-glitch 0.4s;
+            overflow-y: auto; /* Allow scrolling for long descriptions */
+            max-height: 90vh; /* Limit modal height to fit screen */
         }
         @keyframes modal-glitch {
             0% { filter: blur(8px) grayscale(1);}
@@ -475,6 +468,7 @@
             margin-bottom: 8px;
             text-shadow: 2px 2px 0 var(--magenta), 0 0 8px var(--yellow);
             letter-spacing: 2px;
+            text-align: center; /* Titles should still be centered */
         }
         .modal-tag {
             background: var(--cyan);
@@ -493,7 +487,8 @@
             font-size: 1.1rem;
             font-family: 'Barlow Condensed', Arial, sans-serif;
             margin-bottom: 18px;
-            text-align: center;
+            text-align: left; /* Changed to left-align for improved readability of long text */
+            line-height: 1.6; /* Improve line spacing for long text */
         }
         .modal-close {
             position: absolute;
@@ -691,6 +686,42 @@
             top: 12px;
             user-select: none;
         }
+
+        /* Fixed Navigation Bar */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .fixed-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1.2rem;
+            padding: 8px 15px;
+            margin: 0 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.1s;
+            border: 2px solid transparent;
+        }
+        .fixed-nav a:hover {
+            background-color: var(--magenta);
+            color: var(--yellow);
+            border-color: var(--yellow);
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 0 var(--black);
+        }
+        .fixed-nav a:active {
+            transform: translateY(0);
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             header {
@@ -707,19 +738,38 @@
             .case-card { width: 98vw; max-width: 340px;}
             .loadout-grid { gap: 18px;}
             .loadout-module { width: 98vw; max-width: 340px;}
+            .fixed-nav a {
+                margin: 0 5px;
+                padding: 6px 10px;
+                font-size: 1rem;
+            }
         }
         @media (max-width: 600px) {
             .crt-panel, .loadout-section, .contact-section { padding: 0 2vw;}
             .crt-col, .loadout-module { padding: 18px 8px;}
             .case-card { min-height: 260px;}
             .modal-content { padding: 24px 8px;}
+            .fixed-nav {
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding: 5px 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Fixed Navigation Bar -->
+    <div class="fixed-nav">
+        <a href="#home"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="#manifesto"><i class="fa-solid fa-file-alt"></i> Manifesto</a>
+        <a href="#case-files"><i class="fa-solid fa-folder-open"></i> Cases</a>
+        <a href="#loadout"><i class="fa-solid fa-plug"></i> Loadout</a>
+        <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </div>
+
     <div id="parallax-content">
         <!-- HEADER -->
-        <header>
+        <header id="home">
             <div class="profile-frame">
                 <img src="https://github.com/aabrur/my-portfolio-assets/blob/main/Photo%20Profile%20(ZZZ).png?raw=true" alt="Proxy Profile">
             </div>
@@ -735,7 +785,7 @@
             <div class="header-lines"></div>
         </header>
         <!-- MANIFESTO / PROXY DATA LOG -->
-        <section class="crt-panel" style="margin-bottom: 64px; position: relative;">
+        <section class="crt-panel" id="manifesto" style="margin-bottom: 64px; position: relative;">
             <div class="scanlines"></div>
             <h2 class="crt-title" style="margin: 32px 0 0 32px;"><i class="fa-solid fa-database"></i>// PROXY DATA LOG: ACTIVE</h2>
             <div class="crt-content">
@@ -757,11 +807,15 @@
             </div>
         </section>
         <!-- CASE FILES ARCHIVE -->
-        <section>
+        <section id="case-files">
             <h2 class="crt-title" style="margin-left: 8vw; margin-bottom: 24px;"><i class="fa-solid fa-folder-open"></i>// CASE FILES: ARCHIVE_</h2>
             <div class="case-archive">
                 <!-- CASE CARD 1 -->
-                <div class="case-card" data-title="Character Concept: ARIA &amp; Kael" data-tag="AI Art" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true" data-desc="Original character concept art for ARIA &amp; Kael, blending AI-driven illustration with ZZZ-inspired urban motifs.">
+                <div class="case-card"
+                    data-title="Character Concept: ARIA &amp; Kael"
+                    data-tag="AI Art"
+                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true"
+                    data-desc="Original character concept art for ARIA &amp; Kael, blending AI-driven illustration with ZZZ-inspired urban motifs. This project involved extensive iteration using various AI models to capture the desired aesthetic and character personalities. The goal was to create visually striking and narrative-rich designs that resonated with the game's gritty, futuristic setting. Each detail, from their attire to their subtle expressions, was carefully crafted to convey their backstory and role within the Zenless Zone Zero universe.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true" alt="ARIA & Kael">
                         <div class="case-title">ARIA &amp; Kael</div>
@@ -770,7 +824,11 @@
                     <div class="case-graffiti">#001</div>
                 </div>
                 <!-- CASE CARD 2 -->
-                <div class="case-card" data-title="AI Fashion Collection" data-tag="AI Art / LoRA" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true" data-desc="A collection of AI-generated fashion concepts using LoRA, fusing streetwear with digital aesthetics.">
+                <div class="case-card"
+                    data-title="AI Fashion Collection"
+                    data-tag="AI Art / LoRA"
+                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true"
+                    data-desc="A collection of AI-generated fashion concepts using LoRA, fusing streetwear with digital aesthetics. This collection aimed to push the boundaries of virtual fashion design, exploring new silhouettes, textures, and material combinations that would be difficult to realize through traditional methods. The use of LoRA (Low-Rank Adaptation) allowed for fine-tuned control over stylistic elements, resulting in a cohesive yet diverse range of garments suitable for a vibrant, near-future urban environment.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true" alt="AI Fashion Collection">
                         <div class="case-title">AI Fashion Collection</div>
@@ -779,7 +837,7 @@
                     <div class="case-graffiti">#002</div>
                 </div>
                 <!-- CASE CARD 3 -->
-                <div class="case-card" data-title="R&amp;D: Biomechanical Botany" data-tag="Creative R&amp;D" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" data-desc="Experimental research visuals exploring the intersection of botany and biomechanical design.">
+                <div class="case-card" data-title="R&amp;D: Biomechanical Botany" data-tag="Creative R&amp;D" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" data-desc="Experimental research visuals exploring the intersection of botany and biomechanical design. This R&D initiative delves into speculative biology, envisioning how organic life might integrate with synthetic components in future ecosystems. The visuals showcase intricate designs where plant structures are augmented with mechanical parts, blurring the lines between natural growth and engineered forms. This project aims to spark discussions on bio-engineering, sustainable technology, and the aesthetic potential of hybridized lifeforms.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" alt="Biomechanical Botany">
                         <div class="case-title">Biomechanical Botany</div>
@@ -788,7 +846,7 @@
                     <div class="case-graffiti">#003</div>
                 </div>
                 <!-- CASE CARD 4 -->
-                <div class="case-card" data-title="The Holy Grail Workflow" data-tag="AI Workflow" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" data-desc="A visual breakdown of the 'Holy Grail' workflow for AI-powered creative production.">
+                <div class="case-card" data-title="The Holy Grail Workflow" data-tag="AI Workflow" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" data-desc="A visual breakdown of the 'Holy Grail' workflow for AI-powered creative production. This comprehensive guide illustrates a refined process from initial concept generation to final high-fidelity output using advanced AI tools. It covers prompt optimization, iterative refinement, model selection, and post-processing techniques, designed to maximize efficiency and artistic control. The workflow is presented to empower creators in harnessing AI's full potential for generating innovative and professional-grade visual content.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" alt="Holy Grail Workflow">
                         <div class="case-title">Holy Grail Workflow</div>
@@ -797,7 +855,7 @@
                     <div class="case-graffiti">#004</div>
                 </div>
                 <!-- CASE CARD 5 -->
-                <div class="case-card" data-title="GAAN - Social QR Game" data-tag="App Concept" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" data-desc="Concept for a social QR-based game, blending urban exploration with digital play.">
+                <div class="case-card" data-title="GAAN - Social QR Game" data-tag="App Concept" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" data-desc="Concept for a social QR-based game, blending urban exploration with digital play. GAAN (Gamified Augmented ANomaly) reimagines cityscapes as interactive playgrounds, where players scan QR codes to unlock narratives, challenges, and virtual collectibles. The game encourages real-world social interaction and exploration, leveraging location-based technologies to create an immersive experience that bridges the physical and digital realms. It's designed to foster community engagement and offer a fresh perspective on urban environments.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" alt="GAAN QR Game">
                         <div class="case-title">GAAN - Social QR Game</div>
@@ -806,7 +864,7 @@
                     <div class="case-graffiti">#005</div>
                 </div>
                 <!-- CASE CARD 6 -->
-                <div class="case-card" data-title="GS Shoes - Ghalen Swivel" data-tag="Brand Creator" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" data-desc="Branding and concept visuals for GS Shoes: Ghalen Swivel, inspired by ZZZ's street-tech style.">
+                <div class="case-card" data-title="GS Shoes - Ghalen Swivel" data-tag="Brand Creator" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" data-desc="Branding and concept visuals for GS Shoes: Ghalen Swivel, inspired by ZZZ's street-tech style. This project involved developing a complete brand identity, from logo design to promotional imagery, for a fictional footwear line. The aesthetic draws heavily from the raw, cyberpunk-infused urban style of Zenless Zone Zero, incorporating elements of industrial design, graffiti, and futuristic fashion. The goal was to create a brand that feels authentic to the game's universe, appealing to fans and fashion enthusiasts alike with its bold and distinctive visuals.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" alt="GS Shoes">
                         <div class="case-title">GS Shoes - Ghalen Swivel</div>
@@ -827,7 +885,7 @@
             </div>
         </div>
         <!-- AGENT LOADOUT / PLUG-INS -->
-        <section class="loadout-section">
+        <section class="loadout-section" id="loadout">
             <h2 class="crt-title"><i class="fa-solid fa-plug"></i>// AGENT LOADOUT: PLUG-INS_EQUIPPED</h2>
             <div class="loadout-grid">
                 <!-- AI Module -->
@@ -878,7 +936,7 @@
             </div>
         </section>
         <!-- CONTACT / COMMS-LINK -->
-        <section class="contact-section">
+        <section class="contact-section" id="contact">
             <div class="scanlines"></div>
             <h2 class="contact-title"><i class="fa-solid fa-satellite-dish"></i>// ESTABLISH COMMS-LINK: OPEN_CHANNEL</h2>
             <div class="contact-links">
@@ -928,6 +986,7 @@
                 modalImg.src = card.getAttribute('data-img');
                 modalTitle.textContent = card.getAttribute('data-title');
                 modalTag.textContent = card.getAttribute('data-tag');
+                // Set the modal description from data-desc attribute
                 modalDesc.textContent = card.getAttribute('data-desc');
                 modal.classList.add('active');
                 staticAudio.currentTime = 0;
