@@ -227,7 +227,7 @@
                 transform: translateY(0) scale(1) skewX(0);
             }
         }
-        /* Manifesto Section */
+        /* Manifesto & CRT Panel Sections */
         .crt-panel {
             background: #181a1f;
             border-radius: var(--crt-radius);
@@ -286,7 +286,8 @@
         }
         .crt-list li {
             display: flex;
-            align-items: center;
+            /* align-items: center; */ /* Changed for better list alignment */
+            align-items: flex-start;
             font-size: 1.1rem;
             margin-bottom: 16px;
             font-family: 'Barlow Condensed', Arial, sans-serif;
@@ -301,11 +302,24 @@
             margin-right: 10px;
             animation: chevron-blink 1s infinite alternate;
             filter: drop-shadow(0 0 2px var(--yellow));
+            line-height: 1.4; /* To align with text */
         }
         @keyframes chevron-blink {
             0%, 100% { opacity: 1;}
             50% { opacity: 0.4;}
         }
+        .op-title { /* For Field Operations */
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: bold;
+        }
+        .op-meta {
+            font-size: 1rem;
+            color: var(--yellow);
+            display: block;
+            margin-bottom: 8px;
+        }
+
         /* Case Files Archive */
         .case-archive {
             max-width: 1200px;
@@ -693,20 +707,23 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.85); /* Slightly more opaque */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             z-index: 100;
             display: flex;
             justify-content: center;
             padding: 10px 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            flex-wrap: wrap; /* Allow nav items to wrap */
         }
         .fixed-nav a {
             color: var(--white);
             text-decoration: none;
             font-family: 'Barlow Condensed', Arial, sans-serif;
-            font-size: 1.2rem;
-            padding: 8px 15px;
-            margin: 0 10px;
+            font-size: 1.1rem; /* Slightly smaller for more items */
+            padding: 8px 12px;
+            margin: 2px 5px; /* Adjust margin for wrapping */
             border-radius: 8px;
             transition: background-color 0.3s, color 0.3s, transform 0.1s;
             border: 2px solid transparent;
@@ -738,10 +755,11 @@
             .case-card { width: 98vw; max-width: 340px;}
             .loadout-grid { gap: 18px;}
             .loadout-module { width: 98vw; max-width: 340px;}
+        }
+        @media (max-width: 768px) {
             .fixed-nav a {
-                margin: 0 5px;
-                padding: 6px 10px;
                 font-size: 1rem;
+                padding: 6px 10px;
             }
         }
         @media (max-width: 600px) {
@@ -750,9 +768,12 @@
             .case-card { min-height: 260px;}
             .modal-content { padding: 24px 8px;}
             .fixed-nav {
-                flex-wrap: wrap;
                 justify-content: space-around;
                 padding: 5px 0;
+            }
+            .fixed-nav a {
+                margin: 2px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -762,8 +783,10 @@
     <div class="fixed-nav">
         <a href="#home"><i class="fa-solid fa-house"></i> Home</a>
         <a href="#manifesto"><i class="fa-solid fa-file-alt"></i> Manifesto</a>
+        <a href="#field-ops"><i class="fa-solid fa-person-rifle"></i> Field Ops</a>
         <a href="#case-files"><i class="fa-solid fa-folder-open"></i> Cases</a>
         <a href="#loadout"><i class="fa-solid fa-plug"></i> Loadout</a>
+        <a href="#academics"><i class="fa-solid fa-graduation-cap"></i> Academics</a>
         <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
     </div>
 
@@ -784,6 +807,7 @@
             </div>
             <div class="header-lines"></div>
         </header>
+
         <!-- MANIFESTO / PROXY DATA LOG -->
         <section class="crt-panel" id="manifesto" style="margin-bottom: 64px; position: relative;">
             <div class="scanlines"></div>
@@ -806,10 +830,93 @@
                 </div>
             </div>
         </section>
+
+        <!-- FIELD OPERATIONS / EXPERIENCE -->
+        <section class="crt-panel" id="field-ops" style="margin-bottom: 64px; position: relative;">
+            <div class="scanlines"></div>
+            <h2 class="crt-title" style="margin: 32px 0 0 32px;"><i class="fa-solid fa-person-rifle"></i>// FIELD OPERATIONS: LOG_</h2>
+            <div class="crt-content">
+                <div class="crt-col">
+                    <ul class="crt-list">
+                        <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Partner Driver - Gojek Indonesia</div>
+                                <span class="op-meta">2019 - Now // Greater Jakarta</span>
+                                Served 15k+ trips with 4.8+ rating average, optimized daily routing, and developed street-based insights for future smart logistics concepts.
+                            </div>
+                        </li>
+                         <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Academic Staff - Trisakti Institute of Transportation & Logistics</div>
+                                <span class="op-meta">2017 - 2019 // East Jakarta</span>
+                                Provided student administrative services, including diploma collection and academic transcript printing.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Chef Tempura - Marugame Udon</div>
+                                <span class="op-meta">2015 - 2016 // Jakarta</span>
+                                Prepared high-volume tempura orders with quality consistency and maintained kitchen safety & hygiene standards.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="crt-col">
+                     <ul class="crt-list">
+                        <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Creative Specialist - iBig Creative</div>
+                                <span class="op-meta">2014 - 2016 // Jakarta</span>
+                                Produced content for branding campaigns and directed small creative teams to meet client goals.
+                            </div>
+                        </li>
+                        <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Material Control Operator - PT Yamaha Indonesia Motor Mfg.</div>
+                                <span class="op-meta">2012 - 2013 // Jakarta</span>
+                                Managed and rearranged empty carriers for reloading and operated towing vehicles for material distribution.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- CASE FILES ARCHIVE -->
         <section id="case-files">
             <h2 class="crt-title" style="margin-left: 8vw; margin-bottom: 24px;"><i class="fa-solid fa-folder-open"></i>// CASE FILES: ARCHIVE_</h2>
             <div class="case-archive">
+                 <!-- CASE CARD: BOOK -->
+                <div class="case-card"
+                    data-title="Book: Teori Benang Kosmik"
+                    data-tag="Author"
+                    data-img="https://github.com/aabrur/portofolio-abrur/blob/main/Teori%20Benang%20Kosmik.png?raw=true"
+                    data-desc="Ongoing authorial project: 'Teori Benang Kosmik'. A book manuscript that aims to unveil the divine code behind creation and the cosmos. This work is currently in the editing process, blending metaphysical concepts with narrative storytelling to explore the universe's foundational principles.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/portofolio-abrur/blob/main/Teori%20Benang%20Kosmik.png?raw=true" alt="Book: Teori Benang Kosmik">
+                        <div class="case-title">Book: Teori Benang Kosmik</div>
+                        <div class="case-tag">Author</div>
+                    </div>
+                    <div class="case-graffiti">#WRT</div>
+                </div>
+                <!-- CASE CARD: NOVEL -->
+                <div class="case-card"
+                    data-title="Novel: Azhra"
+                    data-tag="Author"
+                    data-img="https://github.com/aabrur/portofolio-abrur/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true"
+                    data-desc="Currently writing the novel 'Azhra: Vow of the Quiet Flame'. The story revolves around a father and a dragon who must protect one last light in a dying world. This project is an exploration of themes like sacrifice, hope, and companionship set within a dark fantasy universe.">
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="https://github.com/aabrur/portofolio-abrur/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true" alt="Novel: Azhra">
+                        <div class="case-title">Novel: Azhra</div>
+                        <div class="case-tag">Author</div>
+                    </div>
+                    <div class="case-graffiti">#NVL</div>
+                </div>
                 <!-- CASE CARD 1 -->
                 <div class="case-card"
                     data-title="Character Concept: ARIA &amp; Kael"
@@ -874,6 +981,7 @@
                 </div>
             </div>
         </section>
+
         <!-- CASE MODAL -->
         <div class="case-modal" id="caseModal">
             <div class="modal-content">
@@ -884,13 +992,14 @@
                 <div class="modal-desc" id="modalDesc"></div>
             </div>
         </div>
+
         <!-- AGENT LOADOUT / PLUG-INS -->
         <section class="loadout-section" id="loadout">
             <h2 class="crt-title"><i class="fa-solid fa-plug"></i>// AGENT LOADOUT: PLUG-INS_EQUIPPED</h2>
             <div class="loadout-grid">
                 <!-- AI Module -->
                 <div class="loadout-module">
-                    <div class="loadout-title"><i class="fa-solid fa-brain"></i>AI</div>
+                    <div class="loadout-title"><i class="fa-solid fa-brain"></i>AI & Creative</div>
                     <ul class="skill-list">
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-robot"></i></span>AI Art Generation
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="95"></div></div>
@@ -898,8 +1007,11 @@
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt Engineering
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="92"></div></div>
                         </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-brain"></i></span>AI Model Tuning
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="88"></div></div>
+                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-pen-ruler"></i></span>Creative Direction
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="93"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-book-open"></i></span>Writing
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div>
                         </li>
                     </ul>
                 </div>
@@ -910,11 +1022,14 @@
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-code"></i></span>Web Development
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div>
                         </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-database"></i></span>Data Engineering
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="80"></div></div>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-brands fa-figma"></i></span>ComfyUI / Stable Diffusion
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="94"></div></div>
                         </li>
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-network-wired"></i></span>API Integration
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="83"></div></div>
+                        </li>
+                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-database"></i></span>Data Engineering
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="80"></div></div>
                         </li>
                     </ul>
                 </div>
@@ -925,24 +1040,64 @@
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-users"></i></span>Team Leadership
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="90"></div></div>
                         </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-lightbulb"></i></span>Creative Direction
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="93"></div></div>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span>Field Research & Analysis
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="88"></div></div>
                         </li>
                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-handshake"></i></span>Stakeholder Engagement
                             <div class="skill-bar-wrap"><div class="skill-bar" data-skill="87"></div></div>
+                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-truck-fast"></i></span>Logistics
+                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="89"></div></div>
                         </li>
                     </ul>
                 </div>
             </div>
         </section>
+
+        <!-- ACADEMICS & CERTIFICATIONS -->
+        <section class="loadout-section" id="academics">
+            <h2 class="crt-title"><i class="fa-solid fa-graduation-cap"></i>// ACADEMICS & CERTIFICATIONS: DATA_</h2>
+            <div class="loadout-grid">
+                <!-- Education Module -->
+                <div class="loadout-module">
+                    <div class="loadout-title"><i class="fa-solid fa-school"></i>Education</div>
+                     <ul class="crt-list" style="padding-top: 10px;">
+                        <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">Bachelor of Logistics Management</div>
+                                <span class="op-meta">ITL Trisakti // Ongoing</span>
+                            </div>
+                        </li>
+                         <li>
+                            <span class="chevron">&gt;&gt;</span>
+                            <div>
+                                <div class="op-title">SMA IT Al-Halimiyah</div>
+                                <span class="op-meta">Graduated 2012</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Certifications Module -->
+                <div class="loadout-module">
+                    <div class="loadout-title"><i class="fa-solid fa-award"></i>Certifications</div>
+                    <ul class="crt-list" style="padding-top: 10px;">
+                        <li><span class="chevron">&gt;&gt;</span>Street Smart Program: Defensive Riding - Rifat Drive Labs (2019)</li>
+                        <li><span class="chevron">&gt;&gt;</span>English Language Course Certificates - Mr. Bob English Camp (2015)</li>
+                        <li><span class="chevron">&gt;&gt;</span>Certificate of Employment - PT Yamaha Indonesia (2013)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- CONTACT / COMMS-LINK -->
         <section class="contact-section" id="contact">
             <div class="scanlines"></div>
             <h2 class="contact-title"><i class="fa-solid fa-satellite-dish"></i>// ESTABLISH COMMS-LINK: OPEN_CHANNEL</h2>
             <div class="contact-links">
-                <a class="contact-btn" href="https://www.linkedin.com/in/mohamad-abrur" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
+                <a class="contact-btn" href="https://www.linkedin.com/in/mohamad-abrur-alaina" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
                 <a class="contact-btn" href="https://github.com/aabrur" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
-                <a class="contact-btn" href="https://huggingface.co/aabrur" target="_blank" rel="noopener"><i class="fab fa-hubspot"></i>Hugging Face</a>
+                <a class="contact-btn" href="https://linktr.ee/aabrur" target="_blank" rel="noopener"><i class="fab fa-hubspot"></i>Linktree</a>
                 <a class="contact-btn" href="mailto:abrur_nic@yahoo.com"><i class="fa-solid fa-envelope"></i>Email</a>
             </div>
         </section>
@@ -970,8 +1125,6 @@
         }
         addScreenShake('.profile-frame, .case-card, .contact-btn');
 
-        // Tag typing animation (already handled by CSS animation-delay)
-
         // CASE MODAL LOGIC
         const modal = document.getElementById('caseModal');
         const modalImg = document.getElementById('modalImg');
@@ -986,7 +1139,6 @@
                 modalImg.src = card.getAttribute('data-img');
                 modalTitle.textContent = card.getAttribute('data-title');
                 modalTag.textContent = card.getAttribute('data-tag');
-                // Set the modal description from data-desc attribute
                 modalDesc.textContent = card.getAttribute('data-desc');
                 modal.classList.add('active');
                 staticAudio.currentTime = 0;
