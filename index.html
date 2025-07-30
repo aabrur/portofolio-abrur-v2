@@ -140,6 +140,7 @@
             40% { border-color: var(--yellow);}
             60% { border-color: var(--cyan);}
             80% { border-color: var(--magenta);}
+            100% { border-color: var(--cyan);}
         }
         .profile-frame img {
             width: 100%;
@@ -286,7 +287,6 @@
         }
         .crt-list li {
             display: flex;
-            /* align-items: center; */ /* Changed for better list alignment */
             align-items: flex-start;
             font-size: 1.1rem;
             margin-bottom: 16px;
@@ -302,7 +302,7 @@
             margin-right: 10px;
             animation: chevron-blink 1s infinite alternate;
             filter: drop-shadow(0 0 2px var(--yellow));
-            line-height: 1.4; /* To align with text */
+            line-height: 1.4;
         }
         @keyframes chevron-blink {
             0%, 100% { opacity: 1;}
@@ -339,9 +339,9 @@
             width: 260px;
             min-height: 340px;
             position: relative;
-            overflow: visible;
+            overflow: hidden; /* Changed to hidden to contain button */
             cursor: pointer;
-            transition: transform 0.18s cubic-bezier(.25,1.5,.5,1), box-shadow 0.18s;
+            transition: transform 0.3s cubic-bezier(.25,1.5,.5,1), box-shadow 0.3s, border-color 0.3s;
             will-change: transform;
             border: 3px solid var(--yellow);
             display: flex;
@@ -351,12 +351,35 @@
             margin-bottom: 24px;
             perspective: 900px;
         }
+        .case-card::before { /* New: Animated border glow */
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border: 3px solid transparent;
+            border-radius: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, border-color 0.3s;
+            z-index: 0;
+        }
         .case-card:hover {
             transform: rotateY(-8deg) scale(1.06) translateY(-8px);
             box-shadow: 0 0 48px 8px var(--magenta), 0 0 0 8px var(--yellow);
             z-index: 3;
             animation: card-bounce 0.3s cubic-bezier(.25,1.5,.5,1);
+            border-color: var(--cyan); /* Change border color on hover */
         }
+        .case-card:hover::before { /* New: Animated border glow on hover */
+            opacity: 1;
+            border-color: var(--cyan);
+            animation: border-pulse 1.5s infinite alternate;
+        }
+        @keyframes border-pulse {
+            0% { border-color: var(--cyan); opacity: 0.8; filter: blur(0);}
+            50% { border-color: var(--magenta); opacity: 1; filter: blur(2px);}
+            100% { border-color: var(--yellow); opacity: 0.8; filter: blur(0);}
+        }
+
         @keyframes card-bounce {
             0% { transform: scale(1) rotateY(0);}
             50% { transform: scale(1.08) rotateY(-10deg);}
@@ -370,6 +393,7 @@
             background: #222;
             position: relative;
             border-bottom: 2px solid var(--magenta);
+            z-index: 1; /* Ensure image is below text but above pseudo-elements */
         }
         .case-img {
             width: 100%;
@@ -377,8 +401,8 @@
             object-fit: cover;
             filter: contrast(1.1) brightness(1.1) saturate(1.2);
             transition: filter 0.2s;
-            z-index: 1;
             position: relative;
+            z-index: 1;
         }
         .case-card:hover .case-img {
             animation: vhs-static 0.4s steps(2, end) infinite;
@@ -390,7 +414,7 @@
             100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
         }
         .case-title {
-            font-family: 'Teko', 'Anton', Arial, sans-serif;
+            font-family: 'Teko', Arial, sans-serif; /* Adjusted font for consistency */
             font-size: 1.3rem;
             color: var(--magenta);
             background: rgba(0,0,0,0.7);
@@ -406,10 +430,12 @@
             box-shadow: 0 2px 8px #000a;
             font-weight: bold;
             pointer-events: none;
-            font-family: 'Barlow Condensed', Arial, sans-serif;
-            font-size: 1.1rem;
             letter-spacing: 1px;
-            font-family: 'Teko', Arial, sans-serif;
+            transition: all 0.2s; /* Add transition */
+        }
+        .case-card:hover .case-title {
+            text-shadow: 2px 2px 0 var(--cyan), 0 0 12px var(--magenta);
+            transform: translateY(-2px) scale(1.03);
         }
         .case-tag {
             background: var(--cyan);
@@ -427,21 +453,78 @@
             font-weight: bold;
             pointer-events: none;
             text-shadow: 1px 1px 0 var(--white);
+            transition: all 0.2s; /* Add transition */
         }
+        .case-card:hover .case-tag {
+            background: var(--yellow);
+            border-color: var(--cyan);
+            transform: translateY(2px) scale(1.03);
+        }
+
+        /* New: View Details Button */
+        .case-card .view-details-btn {
+            position: absolute;
+            bottom: 20px; /* Adjust position */
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--yellow);
+            color: var(--black);
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 8px 18px;
+            border-radius: 15px;
+            border: 2px solid var(--magenta);
+            box-shadow: 0 2px 8px #000a;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            cursor: pointer;
+            z-index: 3; /* Ensure it's above other elements when visible */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 1px 1px 0 var(--white);
+        }
+
+        .case-card:hover .view-details-btn {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .case-card .view-details-btn i {
+            color: var(--magenta);
+            font-size: 1.2em;
+            filter: drop-shadow(0 0 2px var(--magenta));
+        }
+
+        .case-card .view-details-btn:hover {
+            background: var(--magenta);
+            color: var(--yellow);
+            border-color: var(--cyan);
+            text-shadow: 1px 1px 0 var(--black);
+            transform: translateX(-50%) translateY(-8px) scale(1.05);
+        }
+
         /* Fullscreen Modal for Case Details */
         .case-modal {
             display: none;
             position: fixed;
             z-index: 1000;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #000d;
+            background: #000e; /* More opaque background */
+            backdrop-filter: blur(8px); /* Increased blur */
+            -webkit-backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1);
+            opacity: 0; /* Start hidden for animation */
+            pointer-events: none; /* Disable interaction until active */
         }
         .case-modal.active {
             display: flex;
-            animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1);
+            opacity: 1;
+            pointer-events: auto; /* Enable interaction when active */
+            animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1) forwards;
         }
         @keyframes tv-static-in {
             0% { opacity: 0; filter: blur(16px) grayscale(1);}
@@ -453,7 +536,7 @@
             border-radius: 24px;
             box-shadow: 0 0 64px 8px var(--magenta), 0 0 0 8px var(--yellow);
             padding: 48px 32px 32px 32px;
-            max-width: 520px;
+            max-width: 600px; /* Slightly wider modal */
             width: 90vw;
             position: relative;
             border: 4px solid var(--cyan);
@@ -464,9 +547,12 @@
             overflow-y: auto; /* Allow scrolling for long descriptions */
             max-height: 90vh; /* Limit modal height to fit screen */
         }
+        .modal-content .scanlines { /* Add scanlines to modal */
+            border-radius: 20px; /* Adjust radius to match modal border */
+        }
         @keyframes modal-glitch {
-            0% { filter: blur(8px) grayscale(1);}
-            100% { filter: blur(0) grayscale(0);}
+            0% { filter: blur(8px) grayscale(1); transform: scale(0.95); opacity: 0;}
+            100% { filter: blur(0) grayscale(0); transform: scale(1); opacity: 1;}
         }
         .modal-content img {
             width: 100%;
@@ -477,19 +563,19 @@
         }
         .modal-title {
             font-family: 'Teko', 'Anton', Arial, sans-serif;
-            font-size: 2rem;
+            font-size: 2.2rem; /* Slightly larger title */
             color: var(--yellow);
             margin-bottom: 8px;
             text-shadow: 2px 2px 0 var(--magenta), 0 0 8px var(--yellow);
             letter-spacing: 2px;
-            text-align: center; /* Titles should still be centered */
+            text-align: center;
         }
         .modal-tag {
             background: var(--cyan);
             color: var(--black);
             font-family: 'Barlow Condensed', Arial, sans-serif;
-            font-size: 1rem;
-            padding: 4px 14px;
+            font-size: 1.1rem; /* Slightly larger tag */
+            padding: 6px 16px;
             border-radius: 12px;
             border: 2px solid var(--magenta);
             font-weight: bold;
@@ -501,26 +587,29 @@
             font-size: 1.1rem;
             font-family: 'Barlow Condensed', Arial, sans-serif;
             margin-bottom: 18px;
-            text-align: left; /* Changed to left-align for improved readability of long text */
-            line-height: 1.6; /* Improve line spacing for long text */
+            text-align: left;
+            line-height: 1.6;
         }
         .modal-close {
             position: absolute;
             top: 18px;
             right: 24px;
-            font-size: 2rem;
+            font-size: 2.5rem; /* Larger close button */
             color: var(--magenta);
             background: none;
             border: none;
             cursor: pointer;
-            transition: color 0.2s;
+            transition: color 0.2s, transform 0.2s;
             z-index: 2;
             font-family: inherit;
+            text-shadow: 0 0 4px var(--magenta);
         }
         .modal-close:hover {
             color: var(--yellow);
-            text-shadow: 0 0 8px var(--magenta);
+            text-shadow: 0 0 12px var(--magenta), 0 0 4px var(--yellow);
+            transform: rotate(5deg) scale(1.1);
         }
+
         /* Agent Loadout / Plug-ins */
         .loadout-section {
             max-width: 1100px;
@@ -766,15 +855,10 @@
             .crt-panel, .loadout-section, .contact-section { padding: 0 2vw;}
             .crt-col, .loadout-module { padding: 18px 8px;}
             .case-card { min-height: 260px;}
-            .modal-content { padding: 24px 8px;}
-            .fixed-nav {
-                justify-content: space-around;
-                padding: 5px 0;
-            }
-            .fixed-nav a {
-                margin: 2px;
-                font-size: 0.9rem;
-            }
+            .modal-content { padding: 24px 15px;} /* Adjust padding for smaller screens */
+            .modal-title { font-size: 1.8rem; }
+            .modal-tag { font-size: 1rem; }
+            .modal-desc { font-size: 1rem; }
         }
     </style>
 </head>
@@ -895,13 +979,14 @@
                 <div class="case-card"
                     data-title="Book: Teori Benang Kosmik"
                     data-tag="Author"
-                    data-img="https://github.com/aabrur/portofolio-abrur/blob/main/Teori%20Benang%20Kosmik.png?raw=true"
+                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Teori%20Benang%20Kosmik.png?raw=true"
                     data-desc="Ongoing authorial project: 'Teori Benang Kosmik'. A book manuscript that aims to unveil the divine code behind creation and the cosmos. This work is currently in the editing process, blending metaphysical concepts with narrative storytelling to explore the universe's foundational principles.">
                     <div class="case-img-wrap">
                         <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Teori%20Benang%20Kosmik.png?raw=true" alt="Book: Teori Benang Kosmik">
                         <div class="case-title">Book: Teori Benang Kosmik</div>
                         <div class="case-tag">Author</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#WRT</div>
                 </div>
                 <!-- CASE CARD: NOVEL -->
@@ -911,10 +996,11 @@
                     data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true"
                     data-desc="Currently writing the novel 'Azhra: Vow of the Quiet Flame'. The story revolves around a father and a dragon who must protect one last light in a dying world. This project is an exploration of themes like sacrifice, hope, and companionship set within a dark fantasy universe.">
                     <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/portofolio-abrur/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true" alt="Novel: Azhra">
+                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true" alt="Novel: Azhra">
                         <div class="case-title">Novel: Azhra</div>
                         <div class="case-tag">Author</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#NVL</div>
                 </div>
                 <!-- CASE CARD 1 -->
@@ -928,6 +1014,7 @@
                         <div class="case-title">Aria &amp; Kael</div>
                         <div class="case-tag">AI Art</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#001</div>
                 </div>
                 <!-- CASE CARD 2 -->
@@ -941,6 +1028,7 @@
                         <div class="case-title">AI Fashion Collection</div>
                         <div class="case-tag">AI Art / LoRA</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#002</div>
                 </div>
                 <!-- CASE CARD 3 -->
@@ -950,6 +1038,7 @@
                         <div class="case-title">Biomechanical Botany</div>
                         <div class="case-tag">Creative R&amp;D</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#003</div>
                 </div>
                 <!-- CASE CARD 4 -->
@@ -959,6 +1048,7 @@
                         <div class="case-title">Holy Grail Workflow</div>
                         <div class="case-tag">AI Workflow</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#004</div>
                 </div>
                 <!-- CASE CARD 5 -->
@@ -968,6 +1058,7 @@
                         <div class="case-title">GAAN - Social QR Game</div>
                         <div class="case-tag">App Concept</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#005</div>
                 </div>
                 <!-- CASE CARD 6 -->
@@ -977,6 +1068,7 @@
                         <div class="case-title">GS Shoes - Ghalen Swivel</div>
                         <div class="case-tag">Brand Creator</div>
                     </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
                     <div class="case-graffiti">#006</div>
                 </div>
             </div>
@@ -1098,7 +1190,7 @@
             <div class="contact-links">
                 <a class="contact-btn" href="https://www.linkedin.com/in/mohamad-abrur-alaina" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
                 <a class="contact-btn" href="https://github.com/aabrur" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
-                <a class="contact-btn" href="https://linktr.ee/aabrur" target="_blank" rel="noopener"><i class="fab fa-hubspot"></i>Linktree</a>
+                <a class="contact-btn" href="https://bio-deck.netlify.app/" target="_blank" rel="noopener"><i class="fab fa-hubspot"></i>BioDeck</a>
                 <a class="contact-btn" href="mailto:abrur_nic@yahoo.com"><i class="fa-solid fa-envelope"></i>Email</a>
             </div>
         </section>
@@ -1136,28 +1228,61 @@
         const staticAudio = document.getElementById('static');
 
         document.querySelectorAll('.case-card').forEach(card => {
-            card.addEventListener('click', () => {
-                modalImg.src = card.getAttribute('data-img');
-                modalTitle.textContent = card.getAttribute('data-title');
-                modalTag.textContent = card.getAttribute('data-tag');
-                modalDesc.textContent = card.getAttribute('data-desc');
-                modal.classList.add('active');
-                staticAudio.currentTime = 0;
-                staticAudio.play();
+            // New: Event listener for the "View Details" button specifically
+            const viewDetailsBtn = card.querySelector('.view-details-btn');
+            if (viewDetailsBtn) { // Ensure button exists
+                viewDetailsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card click event from firing
+                    openModalWithData(card);
+                });
+            }
+
+            // Keep the card click for overall usability, but prioritize button
+            card.addEventListener('click', (e) => {
+                // Only open modal if the click wasn't directly on the button
+                if (!e.target.closest('.view-details-btn')) {
+                    openModalWithData(card);
+                }
             });
         });
+
+        function openModalWithData(cardElement) {
+            modalImg.src = cardElement.getAttribute('data-img');
+            modalTitle.textContent = cardElement.getAttribute('data-title');
+            modalTag.textContent = cardElement.getAttribute('data-tag');
+            modalDesc.textContent = cardElement.getAttribute('data-desc');
+
+            // Add scanlines overlay to modal content when active
+            const scanlinesDiv = document.createElement('div');
+            scanlinesDiv.className = 'scanlines';
+            modal.querySelector('.modal-content').appendChild(scanlinesDiv);
+
+            modal.classList.add('active');
+            staticAudio.currentTime = 0;
+            staticAudio.play();
+        }
+
         modalClose.addEventListener('click', () => {
+            closeModal();
+        });
+
+        modal.addEventListener('click', e => {
+            if (e.target === modal) { // Close when clicking outside the modal content
+                closeModal();
+            }
+        });
+
+        // New: Function to close modal and clean up
+        function closeModal() {
             modal.classList.remove('active');
             staticAudio.pause();
             staticAudio.currentTime = 0;
-        });
-        modal.addEventListener('click', e => {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                staticAudio.pause();
-                staticAudio.currentTime = 0;
+            // Remove scanlines div when modal closes
+            const existingScanlines = modal.querySelector('.modal-content .scanlines');
+            if (existingScanlines) {
+                existingScanlines.remove();
             }
-        });
+        }
 
         // Skill bar animation on scroll
         function animateSkillBars() {
