@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <title>Proxy Portfolio: Zenless Zone Zero - Mohamad Abrur Alaina</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Anton:wght@400&family=Teko:wght@700&display=swap" rel="stylesheet">
-    <!-- Icons (Font Awesome for retro icons) -->
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     <style>
+        /* --- Root Variables & Global Styles --- */
         :root {
             --yellow: #FFDE00;
             --magenta: #FF00C1;
@@ -29,10 +33,11 @@
             );
             --crt-radius: 28px;
         }
-        /* Enable smooth scrolling across the page */
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
             margin: 0;
             padding: 0;
@@ -42,7 +47,8 @@
             overflow-x: hidden;
             min-height: 100vh;
         }
-        /* Background Video/Animation Layer */
+
+        /* --- Background & Overlays --- */
         body::before {
             content: "";
             position: fixed;
@@ -52,21 +58,7 @@
             opacity: 0.85;
             animation: bg-flicker 6s infinite alternate;
         }
-        @keyframes bg-flicker {
-            0%, 100% { filter: brightness(1) contrast(1); }
-            10% { filter: brightness(1.05) contrast(1.1) saturate(1.1); }
-            20% { filter: brightness(0.98) contrast(1.2) saturate(1.2); }
-            50% { filter: brightness(1.1) contrast(1.05) saturate(1.05); }
-            70% { filter: brightness(0.95) contrast(1.15) saturate(1.15); }
-        }
-        /* Parallax Layer for Content */
-        #parallax-content {
-            position: relative;
-            z-index: 1;
-            will-change: transform;
-            transition: transform 0.5s cubic-bezier(.25,1.5,.5,1);
-        }
-        /* Scanlines Overlay */
+
         .scanlines {
             position: absolute;
             pointer-events: none;
@@ -76,38 +68,150 @@
             border-radius: var(--crt-radius);
             mix-blend-mode: lighten;
         }
-        /* Hazard Stripes */
-        .hazard-stripes {
-            background: var(--hazard-stripes);
-            height: 8px;
-            width: 100%;
-            margin-bottom: 12px;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px #000a;
-        }
-        /* Glitch Effect */
-        .glitch {
+
+        #parallax-content {
             position: relative;
-            color: var(--yellow);
-            font-family: 'Anton', 'Teko', Arial, sans-serif;
-            font-size: 2.8rem;
-            letter-spacing: 2px;
-            text-shadow:
-                2px 0 var(--magenta),
-                -2px 0 var(--cyan),
-                0 2px var(--yellow);
-            animation: glitch-anim 1.2s infinite linear alternate-reverse;
-            user-select: none;
+            z-index: 1;
+            will-change: transform;
+            transition: transform 0.5s cubic-bezier(.25,1.5,.5,1);
         }
+
+        /* --- Animations --- */
+        @keyframes bg-flicker {
+            0%, 100% { filter: brightness(1) contrast(1); }
+            10% { filter: brightness(1.05) contrast(1.1) saturate(1.1); }
+            20% { filter: brightness(0.98) contrast(1.2) saturate(1.2); }
+            50% { filter: brightness(1.1) contrast(1.05) saturate(1.05); }
+            70% { filter: brightness(0.95) contrast(1.15) saturate(1.15); }
+        }
+
         @keyframes glitch-anim {
-            0% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
-            20% { text-shadow: 4px 2px var(--magenta), -3px -1px var(--cyan), 0 2px var(--yellow);}
-            40% { text-shadow: 1px -2px var(--magenta), -1px 2px var(--cyan), 0 2px var(--yellow);}
-            60% { text-shadow: 3px 1px var(--magenta), -4px 0 var(--cyan), 0 2px var(--yellow);}
-            80% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
-            100% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow);}
+            0% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow); }
+            20% { text-shadow: 4px 2px var(--magenta), -3px -1px var(--cyan), 0 2px var(--yellow); }
+            40% { text-shadow: 1px -2px var(--magenta), -1px 2px var(--cyan), 0 2px var(--yellow); }
+            60% { text-shadow: 3px 1px var(--magenta), -4px 0 var(--cyan), 0 2px var(--yellow); }
+            80%, 100% { text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan), 0 2px var(--yellow); }
         }
-        /* Animated Border (Profile) */
+
+        @keyframes border-glitch {
+            0%, 100% { border-color: var(--cyan); }
+            20% { border-color: var(--magenta); }
+            40% { border-color: var(--yellow); }
+            60% { border-color: var(--cyan); }
+            80% { border-color: var(--magenta); }
+        }
+
+        @keyframes img-glitch {
+            0%, 100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg); }
+            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg); }
+        }
+        
+        @keyframes tag-appear {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) skewX(0);
+            }
+        }
+
+        @keyframes chevron-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        
+        @keyframes border-pulse {
+            0% { border-color: var(--cyan); opacity: 0.8; filter: blur(0); }
+            50% { border-color: var(--magenta); opacity: 1; filter: blur(2px); }
+            100% { border-color: var(--yellow); opacity: 0.8; filter: blur(0); }
+        }
+
+        @keyframes card-bounce {
+            0% { transform: scale(1) rotateY(0); }
+            50% { transform: scale(1.08) rotateY(-10deg); }
+            100% { transform: scale(1.06) rotateY(-8deg); }
+        }
+        
+        @keyframes vhs-static {
+            0%, 100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg); }
+            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg); }
+        }
+
+        @keyframes tv-static-in {
+            0% { opacity: 0; filter: blur(16px) grayscale(1); }
+            60% { opacity: 1; filter: blur(2px) grayscale(0.5); }
+            100% { opacity: 1; filter: blur(0) grayscale(0); }
+        }
+
+        @keyframes modal-glitch {
+            0% { filter: blur(8px) grayscale(1); transform: scale(0.95); opacity: 0; }
+            100% { filter: blur(0) grayscale(0); transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes btn-bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.89); }
+            100% { transform: scale(0.93); }
+        }
+
+        @keyframes btn-glitch {
+            0%, 100% { filter: none; }
+            40% { filter: hue-rotate(10deg) brightness(1.1); }
+            60% { filter: hue-rotate(-10deg) brightness(1.2); }
+        }
+        
+        /* --- Fixed Navigation --- */
+        .fixed-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+        }
+
+        .fixed-nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            margin: 2px 5px;
+            border-radius: 8px;
+            transition: background-color 0.3s, color 0.3s, transform 0.1s, border-color 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .fixed-nav a:hover {
+            background-color: var(--magenta);
+            color: var(--yellow);
+            border-color: var(--yellow);
+            transform: translateY(-2px);
+            text-shadow: 1px 1px 0 var(--black);
+        }
+
+        .fixed-nav a:active {
+            transform: translateY(0);
+        }
+
+        /* --- Header Section --- */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding: 48px 8vw 32px 8vw;
+            position: relative;
+            z-index: 2;
+            margin-top: 60px; /* Adjust for fixed navigation */
+        }
+
         .profile-frame {
             position: relative;
             width: 180px;
@@ -121,6 +225,7 @@
             box-shadow: 0 0 32px 4px var(--magenta), 0 0 0 8px #000;
             overflow: visible;
         }
+
         .profile-frame::before {
             content: "";
             position: absolute;
@@ -134,14 +239,7 @@
             z-index: 2;
             clip-path: inherit;
         }
-        @keyframes border-glitch {
-            0%, 100% { border-color: var(--cyan);}
-            20% { border-color: var(--magenta);}
-            40% { border-color: var(--yellow);}
-            60% { border-color: var(--cyan);}
-            80% { border-color: var(--magenta);}
-            100% { border-color: var(--cyan);}
-        }
+
         .profile-frame img {
             width: 100%;
             height: 100%;
@@ -152,27 +250,12 @@
             clip-path: inherit;
             transition: filter 0.2s;
         }
+
         .profile-frame:hover img {
             filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);
             animation: img-glitch 0.3s steps(2, end) infinite;
         }
-        @keyframes img-glitch {
-            0% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
-            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg);}
-            100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
-        }
-        /* Header Section */
-        header {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 32px;
-            padding: 48px 8vw 32px 8vw;
-            position: relative;
-            z-index: 2;
-            margin-top: 60px; /* Adjust for fixed navigation */
-        }
+
         .header-content {
             flex: 1 1 320px;
             min-width: 320px;
@@ -181,26 +264,28 @@
             align-items: flex-start;
             gap: 18px;
         }
-        .header-lines {
-            position: absolute;
-            left: 220px;
-            top: 80px;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--cyan), var(--magenta), var(--yellow));
-            z-index: 1;
-            animation: header-line-glitch 1.2s infinite alternate;
+
+        .glitch {
+            position: relative;
+            color: var(--yellow);
+            font-family: 'Anton', 'Teko', Arial, sans-serif;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-shadow:
+                2px 0 var(--magenta),
+                -2px 0 var(--cyan),
+                0 2px var(--yellow);
+            animation: glitch-anim 1.2s infinite linear alternate-reverse;
+            user-select: none;
         }
-        @keyframes header-line-glitch {
-            0%, 100% { filter: blur(0.5px);}
-            50% { filter: blur(2px);}
-        }
+
         .tags {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-top: 8px;
         }
+
         .tag {
             background: var(--yellow);
             color: var(--black);
@@ -210,62 +295,21 @@
             padding: 6px 18px;
             border-radius: 18px;
             box-shadow: 0 2px 8px #000a;
-            margin-bottom: 4px;
+            border: 2px solid var(--magenta);
+            text-shadow: 1px 1px 0 var(--white), 0 0 4px var(--magenta);
             opacity: 0;
             transform: translateY(20px) scale(0.9) skewX(-8deg);
             animation: tag-appear 0.5s forwards;
             animation-delay: var(--delay, 0s);
-            border: 2px solid var(--magenta);
-            position: relative;
-            overflow: hidden;
-            text-shadow: 1px 1px 0 var(--white), 0 0 4px var(--magenta);
         }
-        .tag:nth-child(2) { background: var(--magenta); color: var(--white); border-color: var(--yellow); animation-delay: 0.25s;}
-        .tag:nth-child(3) { background: var(--cyan); color: var(--black); border-color: var(--magenta); animation-delay: 0.5s;}
-        @keyframes tag-appear {
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1) skewX(0);
-            }
-        }
-        /* Manifesto & CRT Panel Sections */
-        .crt-panel {
-            background: #181a1f;
-            border-radius: var(--crt-radius);
-            box-shadow: 0 0 32px 4px #000a, 0 0 0 8px var(--magenta);
-            margin: 0 auto 48px auto;
-            max-width: 1100px;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid var(--cyan);
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-        }
-        .crt-panel .scanlines {
-            z-index: 3;
-        }
-        .crt-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0;
-            position: relative;
-            z-index: 2;
-        }
-        .crt-col {
-            flex: 1 1 320px;
-            min-width: 320px;
-            padding: 32px 32px 32px 32px;
-            font-size: 1.1rem;
-            font-family: 'Barlow Condensed', Arial, sans-serif;
-            color: var(--white);
-            position: relative;
-        }
-        .crt-col:not(:last-child) {
-            border-right: 2px solid var(--yellow);
-        }
-        .crt-title {
+
+        .tag:nth-child(2) { background: var(--magenta); color: var(--white); border-color: var(--yellow); animation-delay: 0.2s; }
+        .tag:nth-child(3) { background: var(--cyan); color: var(--black); border-color: var(--magenta); animation-delay: 0.4s; }
+        .tag:nth-child(4) { animation-delay: 0.6s; }
+        .tag:nth-child(5) { background: var(--magenta); color: var(--white); border-color: var(--yellow); animation-delay: 0.8s; }
+
+        /* --- Generic Content Panels (CRT & Loadout) --- */
+        .section-title {
             font-family: 'Teko', 'Anton', Arial, sans-serif;
             font-size: 1.6rem;
             color: var(--magenta);
@@ -276,15 +320,55 @@
             align-items: center;
             gap: 8px;
         }
-        .crt-title i {
+        
+        .section-title i {
             color: var(--yellow);
             font-size: 1.2em;
         }
+
+        .crt-panel {
+            background: #181a1f;
+            border-radius: var(--crt-radius);
+            box-shadow: 0 0 32px 4px #000a, 0 0 0 8px var(--magenta);
+            margin: 0 auto 64px auto;
+            max-width: 1100px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--cyan);
+        }
+        
+        .crt-panel .scanlines { z-index: 3; }
+
+        .crt-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px; /* Added gap for spacing */
+            position: relative;
+            z-index: 2;
+            margin-top: 16px;
+        }
+
+        .crt-col {
+            flex: 1 1 320px;
+            min-width: 320px;
+            font-size: 1.1rem;
+            font-family: 'Barlow Condensed', Arial, sans-serif;
+            color: var(--white);
+            position: relative;
+        }
+
+        .crt-col:not(:last-child) {
+            padding-right: 32px; /* Spacing */
+            border-right: 2px solid var(--yellow);
+        }
+
         .crt-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .crt-list li {
             display: flex;
             align-items: flex-start;
@@ -296,6 +380,7 @@
             text-shadow: 1px 1px 0 var(--black);
             position: relative;
         }
+
         .crt-list li .chevron {
             color: var(--yellow);
             font-size: 1.3em;
@@ -304,34 +389,44 @@
             filter: drop-shadow(0 0 2px var(--yellow));
             line-height: 1.4;
         }
-        @keyframes chevron-blink {
-            0%, 100% { opacity: 1;}
-            50% { opacity: 0.4;}
-        }
-        .op-title { /* For Field Operations */
+
+        .op-title {
             font-size: 1.3rem;
             color: var(--white);
             font-weight: bold;
         }
+
         .op-meta {
             font-size: 1rem;
             color: var(--yellow);
             display: block;
             margin-bottom: 8px;
         }
+        
+        .op-details {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 8px;
+            color: var(--white);
+        }
 
-        /* Case Files Archive */
-        .case-archive {
+        /* --- Case Files Archive (Portfolio Projects) --- */
+        .case-archive-wrapper {
             max-width: 1200px;
             margin: 0 auto 64px auto;
             padding: 0 8vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        .case-archive {
             display: flex;
             flex-wrap: wrap;
             gap: 32px;
             justify-content: center;
-            position: relative;
-            z-index: 2;
+            margin-top: 24px;
         }
+
         .case-card {
             background: #181a1f;
             border-radius: 18px;
@@ -339,104 +434,80 @@
             width: 260px;
             min-height: 340px;
             position: relative;
-            overflow: hidden; /* Changed to hidden to contain button */
+            overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(.25,1.5,.5,1), box-shadow 0.3s, border-color 0.3s;
             will-change: transform;
             border: 3px solid var(--yellow);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 24px;
+            justify-content: flex-start; /* Align content to top */
             perspective: 900px;
         }
-        .case-card::before { /* New: Animated border glow */
-            content: "";
-            position: absolute;
-            inset: -5px;
-            border: 3px solid transparent;
-            border-radius: 20px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, border-color 0.3s;
-            z-index: 0;
-        }
+
         .case-card:hover {
             transform: rotateY(-8deg) scale(1.06) translateY(-8px);
             box-shadow: 0 0 48px 8px var(--magenta), 0 0 0 8px var(--yellow);
             z-index: 3;
             animation: card-bounce 0.3s cubic-bezier(.25,1.5,.5,1);
-            border-color: var(--cyan); /* Change border color on hover */
+            border-color: var(--cyan);
         }
-        .case-card:hover::before { /* New: Animated border glow on hover */
+        
+        .case-card:hover::before {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border: 3px solid transparent;
+            border-radius: 20px;
             opacity: 1;
+            pointer-events: none;
+            transition: opacity 0.3s, border-color 0.3s;
+            z-index: 0;
             border-color: var(--cyan);
             animation: border-pulse 1.5s infinite alternate;
         }
-        @keyframes border-pulse {
-            0% { border-color: var(--cyan); opacity: 0.8; filter: blur(0);}
-            50% { border-color: var(--magenta); opacity: 1; filter: blur(2px);}
-            100% { border-color: var(--yellow); opacity: 0.8; filter: blur(0);}
-        }
-
-        @keyframes card-bounce {
-            0% { transform: scale(1) rotateY(0);}
-            50% { transform: scale(1.08) rotateY(-10deg);}
-            100% { transform: scale(1.06) rotateY(-8deg);}
-        }
+        
         .case-img-wrap {
             width: 100%;
             height: 180px;
             overflow: hidden;
-            border-radius: 12px 12px 0 0;
             background: #222;
             position: relative;
             border-bottom: 2px solid var(--magenta);
-            z-index: 1; /* Ensure image is below text but above pseudo-elements */
+            z-index: 1;
         }
+
         .case-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             filter: contrast(1.1) brightness(1.1) saturate(1.2);
-            transition: filter 0.2s;
-            position: relative;
-            z-index: 1;
+            transition: filter 0.2s, transform 0.3s;
         }
+
         .case-card:hover .case-img {
             animation: vhs-static 0.4s steps(2, end) infinite;
             filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);
+            transform: scale(1.05);
         }
-        @keyframes vhs-static {
-            0% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
-            50% { filter: contrast(1.5) brightness(1.3) saturate(1.6) hue-rotate(-10deg);}
-            100% { filter: contrast(1.3) brightness(1.2) saturate(1.4) hue-rotate(10deg);}
+
+        .case-text-content {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
+
         .case-title {
-            font-family: 'Teko', Arial, sans-serif; /* Adjusted font for consistency */
-            font-size: 1.3rem;
-            color: var(--magenta);
-            background: rgba(0,0,0,0.7);
-            padding: 8px 16px;
-            border-radius: 10px;
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            z-index: 2;
-            font-style: italic;
-            text-shadow: 2px 2px 0 var(--yellow), 0 0 8px var(--magenta);
-            border: 2px solid var(--yellow);
-            box-shadow: 0 2px 8px #000a;
+            font-family: 'Teko', Arial, sans-serif;
+            font-size: 1.5rem;
+            color: var(--yellow);
+            text-shadow: 2px 2px 0 var(--magenta);
             font-weight: bold;
-            pointer-events: none;
             letter-spacing: 1px;
-            transition: all 0.2s; /* Add transition */
+            margin-bottom: 8px;
         }
-        .case-card:hover .case-title {
-            text-shadow: 2px 2px 0 var(--cyan), 0 0 12px var(--magenta);
-            transform: translateY(-2px) scale(1.03);
-        }
+
         .case-tag {
             background: var(--cyan);
             color: var(--black);
@@ -444,29 +515,17 @@
             font-size: 0.95rem;
             padding: 4px 12px;
             border-radius: 12px;
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            z-index: 2;
             border: 2px solid var(--magenta);
-            box-shadow: 0 2px 8px #000a;
             font-weight: bold;
-            pointer-events: none;
             text-shadow: 1px 1px 0 var(--white);
-            transition: all 0.2s; /* Add transition */
+            align-self: flex-start; /* Align to left */
         }
-        .case-card:hover .case-tag {
-            background: var(--yellow);
-            border-color: var(--cyan);
-            transform: translateY(2px) scale(1.03);
-        }
-
-        /* New: View Details Button */
-        .case-card .view-details-btn {
+        
+        .view-details-btn {
             position: absolute;
-            bottom: 20px; /* Adjust position */
+            bottom: 20px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(10px); /* Start hidden */
             background: var(--yellow);
             color: var(--black);
             font-family: 'Barlow Condensed', Arial, sans-serif;
@@ -479,7 +538,7 @@
             opacity: 0;
             transition: opacity 0.3s, transform 0.3s;
             cursor: pointer;
-            z-index: 3; /* Ensure it's above other elements when visible */
+            z-index: 3;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -488,55 +547,51 @@
 
         .case-card:hover .view-details-btn {
             opacity: 1;
-            transform: translateX(-50%) translateY(-5px);
+            transform: translateX(-50%) translateY(0);
         }
 
-        .case-card .view-details-btn i {
+        .view-details-btn i {
             color: var(--magenta);
             font-size: 1.2em;
             filter: drop-shadow(0 0 2px var(--magenta));
         }
 
-        .case-card .view-details-btn:hover {
+        .view-details-btn:hover {
             background: var(--magenta);
             color: var(--yellow);
             border-color: var(--cyan);
             text-shadow: 1px 1px 0 var(--black);
-            transform: translateX(-50%) translateY(-8px) scale(1.05);
+            transform: translateX(-50%) translateY(-3px) scale(1.05);
         }
 
-        /* Fullscreen Modal for Case Details */
+        /* --- Case Details Modal --- */
         .case-modal {
             display: none;
             position: fixed;
             z-index: 1000;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #000e; /* More opaque background */
-            backdrop-filter: blur(8px); /* Increased blur */
+            background: #000e;
+            backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
-            animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1);
-            opacity: 0; /* Start hidden for animation */
-            pointer-events: none; /* Disable interaction until active */
+            opacity: 0;
+            pointer-events: none;
         }
+
         .case-modal.active {
             display: flex;
             opacity: 1;
-            pointer-events: auto; /* Enable interaction when active */
+            pointer-events: auto;
             animation: tv-static-in 0.5s cubic-bezier(.25,1.5,.5,1) forwards;
         }
-        @keyframes tv-static-in {
-            0% { opacity: 0; filter: blur(16px) grayscale(1);}
-            60% { opacity: 1; filter: blur(2px) grayscale(0.5);}
-            100% { opacity: 1; filter: blur(0) grayscale(0);}
-        }
+
         .modal-content {
             background: #181a1f;
             border-radius: 24px;
             box-shadow: 0 0 64px 8px var(--magenta), 0 0 0 8px var(--yellow);
             padding: 48px 32px 32px 32px;
-            max-width: 600px; /* Slightly wider modal */
+            max-width: 600px;
             width: 90vw;
             position: relative;
             border: 4px solid var(--cyan);
@@ -544,16 +599,12 @@
             flex-direction: column;
             align-items: center;
             animation: modal-glitch 0.4s;
-            overflow-y: auto; /* Allow scrolling for long descriptions */
-            max-height: 90vh; /* Limit modal height to fit screen */
+            overflow-y: auto;
+            max-height: 90vh;
         }
-        .modal-content .scanlines { /* Add scanlines to modal */
-            border-radius: 20px; /* Adjust radius to match modal border */
-        }
-        @keyframes modal-glitch {
-            0% { filter: blur(8px) grayscale(1); transform: scale(0.95); opacity: 0;}
-            100% { filter: blur(0) grayscale(0); transform: scale(1); opacity: 1;}
-        }
+        
+        .modal-content .scanlines { border-radius: 20px; }
+
         .modal-content img {
             width: 100%;
             border-radius: 12px;
@@ -561,20 +612,22 @@
             box-shadow: 0 2px 16px #000a;
             border: 2px solid var(--magenta);
         }
+
         .modal-title {
             font-family: 'Teko', 'Anton', Arial, sans-serif;
-            font-size: 2.2rem; /* Slightly larger title */
+            font-size: 2.2rem;
             color: var(--yellow);
             margin-bottom: 8px;
             text-shadow: 2px 2px 0 var(--magenta), 0 0 8px var(--yellow);
             letter-spacing: 2px;
             text-align: center;
         }
+
         .modal-tag {
             background: var(--cyan);
             color: var(--black);
             font-family: 'Barlow Condensed', Arial, sans-serif;
-            font-size: 1.1rem; /* Slightly larger tag */
+            font-size: 1.1rem;
             padding: 6px 16px;
             border-radius: 12px;
             border: 2px solid var(--magenta);
@@ -582,6 +635,7 @@
             margin-bottom: 18px;
             text-shadow: 1px 1px 0 var(--white);
         }
+
         .modal-desc {
             color: var(--white);
             font-size: 1.1rem;
@@ -590,11 +644,12 @@
             text-align: left;
             line-height: 1.6;
         }
+
         .modal-close {
             position: absolute;
             top: 18px;
             right: 24px;
-            font-size: 2.5rem; /* Larger close button */
+            font-size: 2.5rem;
             color: var(--magenta);
             background: none;
             border: none;
@@ -604,20 +659,22 @@
             font-family: inherit;
             text-shadow: 0 0 4px var(--magenta);
         }
+
         .modal-close:hover {
             color: var(--yellow);
             text-shadow: 0 0 12px var(--magenta), 0 0 4px var(--yellow);
             transform: rotate(5deg) scale(1.1);
         }
 
-        /* Agent Loadout / Plug-ins */
+        /* --- Loadout / Skills Section --- */
         .loadout-section {
             max-width: 1100px;
             margin: 0 auto 64px auto;
-            padding: 0 8vw;
+            padding: 0 4vw;
             position: relative;
             z-index: 2;
         }
+
         .loadout-grid {
             display: flex;
             flex-wrap: wrap;
@@ -625,6 +682,7 @@
             justify-content: center;
             margin-top: 24px;
         }
+
         .loadout-module {
             background: #181a1f;
             border-radius: 18px;
@@ -632,13 +690,14 @@
             border: 3px solid var(--yellow);
             width: 320px;
             min-height: 180px;
-            padding: 24px 24px 18px 24px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: relative;
             overflow: hidden;
         }
+
         .loadout-title {
             font-family: 'Teko', 'Anton', Arial, sans-serif;
             font-size: 1.3rem;
@@ -650,16 +709,19 @@
             align-items: center;
             gap: 8px;
         }
+
         .loadout-title i {
             color: var(--magenta);
             font-size: 1.2em;
         }
+
         .skill-list {
             width: 100%;
             margin: 0;
             padding: 0;
             list-style: none;
         }
+
         .skill-item {
             display: flex;
             align-items: center;
@@ -669,12 +731,14 @@
             color: var(--white);
             gap: 10px;
         }
+
         .skill-icon {
             font-size: 1.3em;
             color: var(--yellow);
             filter: drop-shadow(0 0 2px var(--yellow));
             margin-right: 6px;
         }
+
         .skill-bar-wrap {
             flex: 1;
             background: #222;
@@ -686,6 +750,7 @@
             box-shadow: 0 2px 8px #000a;
             position: relative;
         }
+
         .skill-bar {
             height: 100%;
             width: 0;
@@ -696,11 +761,12 @@
             position: absolute;
             left: 0; top: 0;
         }
-        /* Contact Section */
+
+        /* --- Contact Section --- */
         .contact-section {
             max-width: 700px;
             margin: 0 auto 64px auto;
-            padding: 0 8vw;
+            padding: 32px;
             position: relative;
             z-index: 2;
             background: #181a1f;
@@ -712,24 +778,15 @@
             align-items: center;
             overflow: hidden;
         }
-        .contact-title {
-            font-family: 'Teko', 'Anton', Arial, sans-serif;
-            font-size: 1.6rem;
-            color: var(--yellow);
-            margin: 32px 0 18px 0;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 0 var(--magenta);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+
         .contact-links {
             display: flex;
             gap: 24px;
             flex-wrap: wrap;
-            margin: 32px 0 48px 0;
+            margin-top: 32px;
             justify-content: center;
         }
+
         .contact-btn {
             background: var(--yellow);
             color: var(--black);
@@ -752,83 +809,36 @@
             user-select: none;
             animation: btn-glitch 1.2s infinite alternate;
         }
+
         .contact-btn:active {
             transform: scale(0.93);
             box-shadow: 0 0 24px 4px var(--magenta);
             border-color: var(--cyan);
             animation: btn-bounce 0.18s cubic-bezier(.25,1.5,.5,1);
         }
-        @keyframes btn-bounce {
-            0% { transform: scale(1);}
-            50% { transform: scale(0.89);}
-            100% { transform: scale(0.93);}
-        }
-        @keyframes btn-glitch {
-            0%, 100% { filter: none;}
-            40% { filter: hue-rotate(10deg) brightness(1.1);}
-            60% { filter: hue-rotate(-10deg) brightness(1.2);}
-        }
+
         .contact-btn i {
             font-size: 1.5em;
             color: var(--magenta);
             filter: drop-shadow(0 0 2px var(--magenta));
         }
-        /* Graffiti/Sticker Style */
-        .graffiti {
+        
+        /* --- Footer Graffiti --- */
+        .graffiti-footer {
             font-family: 'Anton', 'Teko', Arial, sans-serif;
             font-size: 2.2rem;
+            text-align: center;
             color: var(--magenta);
             opacity: 0.22;
-            transform: rotate(-8deg);
+            transform: rotate(-3deg);
             pointer-events: none;
-            z-index: 1;
             text-shadow: 2px 2px 0 var(--yellow);
             letter-spacing: 2px;
-            position: absolute;
-            right: 24px;
-            top: 12px;
             user-select: none;
+            margin: 48px 0;
         }
 
-        /* Fixed Navigation Bar */
-        .fixed-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.85); /* Slightly more opaque */
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            flex-wrap: wrap; /* Allow nav items to wrap */
-        }
-        .fixed-nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-family: 'Barlow Condensed', Arial, sans-serif;
-            font-size: 1.1rem; /* Slightly smaller for more items */
-            padding: 8px 12px;
-            margin: 2px 5px; /* Adjust margin for wrapping */
-            border-radius: 8px;
-            transition: background-color 0.3s, color 0.3s, transform 0.1s;
-            border: 2px solid transparent;
-        }
-        .fixed-nav a:hover {
-            background-color: var(--magenta);
-            color: var(--yellow);
-            border-color: var(--yellow);
-            transform: translateY(-2px);
-            text-shadow: 1px 1px 0 var(--black);
-        }
-        .fixed-nav a:active {
-            transform: translateY(0);
-        }
-
-        /* Responsive */
+        /* --- Responsive Design --- */
         @media (max-width: 900px) {
             header {
                 flex-direction: column;
@@ -836,77 +846,78 @@
                 gap: 24px;
                 padding: 32px 4vw 24px 4vw;
             }
-            .header-lines { display: none; }
-            .crt-panel { flex-direction: column; }
-            .crt-content { flex-direction: column; }
-            .crt-col:not(:last-child) { border-right: none; border-bottom: 2px solid var(--yellow);}
-            .case-archive { gap: 18px; }
-            .case-card { width: 98vw; max-width: 340px;}
-            .loadout-grid { gap: 18px;}
-            .loadout-module { width: 98vw; max-width: 340px;}
+            .crt-content { flex-direction: column; gap: 0; }
+            .crt-col { padding: 24px; }
+            .crt-col:not(:last-child) { border-right: none; border-bottom: 2px solid var(--yellow); padding-right: 24px; }
+            .case-archive-wrapper { padding: 0 4vw; }
+            .case-archive { gap: 24px; }
+            .case-card { width: 95vw; max-width: 340px; }
+            .loadout-grid { gap: 24px; }
+            .loadout-module { width: 95vw; max-width: 340px; }
         }
+
         @media (max-width: 768px) {
             .fixed-nav a {
                 font-size: 1rem;
                 padding: 6px 10px;
             }
+            .glitch { font-size: 2.4rem; }
         }
+
         @media (max-width: 600px) {
-            .crt-panel, .loadout-section, .contact-section { padding: 0 2vw;}
-            .crt-col, .loadout-module { padding: 18px 8px;}
-            .case-card { min-height: 260px;}
-            .modal-content { padding: 24px 15px;} /* Adjust padding for smaller screens */
+            .crt-panel, .loadout-section, .contact-section { padding: 16px; }
+            .crt-col, .loadout-module { padding: 18px 12px; }
+            .case-card { min-height: 300px; }
+            .modal-content { padding: 32px 15px 15px 15px; }
             .modal-title { font-size: 1.8rem; }
-            .modal-tag { font-size: 1rem; }
-            .modal-desc { font-size: 1rem; }
+            .modal-tag, .modal-desc { font-size: 1rem; }
+            .contact-btn { padding: 14px 24px; font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
     <!-- Fixed Navigation Bar -->
-    <div class="fixed-nav">
+    <nav class="fixed-nav">
         <a href="#home"><i class="fa-solid fa-house"></i> Home</a>
         <a href="#manifesto"><i class="fa-solid fa-file-alt"></i> Manifesto</a>
         <a href="#field-ops"><i class="fa-solid fa-person-rifle"></i> Field Ops</a>
         <a href="#case-files"><i class="fa-solid fa-folder-open"></i> Cases</a>
         <a href="#loadout"><i class="fa-solid fa-plug"></i> Loadout</a>
         <a href="#academics"><i class="fa-solid fa-graduation-cap"></i> Academics</a>
-        <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
-    </div>
+        <a href="#contact"><i class="fa-solid fa-satellite-dish"></i> Contact</a>
+    </nav>
 
     <div id="parallax-content">
         <!-- HEADER -->
         <header id="home">
             <div class="profile-frame">
-                <img src="https://github.com/aabrur/my-portfolio-assets/blob/main/Photo%20Profile%20(ZZZ).png?raw=true" alt="Proxy Profile">
+                <img src="https://github.com/aabrur/my-portfolio-assets/blob/main/Photo%20Profile%20(ZZZ).png?raw=true" alt="Proxy Profile" onerror="this.onerror=null;this.src='https://placehold.co/180x180/111/FF00C1?text=Image+Error';">
             </div>
             <div class="header-content">
-                <div class="hazard-stripes"></div>
                 <h1 class="glitch">AGENT ACCESS: ABRUR ALAINA</h1>
                 <div class="tags">
                     <span class="tag">[TAG: AI ARTIST]</span>
                     <span class="tag">[TAG: CREATIVE TECHNOLOGIST]</span>
                     <span class="tag">[TAG: CULTURAL INTEGRATOR]</span>
                     <span class="tag">[TAG: ADMIN & LOGISTICS]</span>
-                    <SPAN CLASS="tag">[TAG: TEAM LEAD]</span>
+                    <span class="tag">[TAG: TEAM LEAD]</span>
                 </div>
             </div>
-            <div class="header-lines"></div>
         </header>
 
         <!-- MANIFESTO / PROXY DATA LOG -->
-        <section class="crt-panel" id="manifesto" style="margin-bottom: 64px; position: relative;">
+        <section class="crt-panel" id="manifesto">
             <div class="scanlines"></div>
-            <h2 class="crt-title" style="margin: 32px 0 0 32px;"><i class="fa-solid fa-database"></i>// PROXY DATA LOG: ACTIVE</h2>
+            <h2 class="section-title"><i class="fa-solid fa-database"></i>// PROXY DATA LOG: ACTIVE</h2>
             <div class="crt-content">
                 <div class="crt-col">
-                    <div class="crt-title"><i class="fa-solid fa-id-card"></i>AGENT DOSSIER</div>
-                    <div>
+                    <h3 class="section-title"><i class="fa-solid fa-id-card"></i>AGENT DOSSIER</h3>
+                    <p>
                         An operative with a multidisciplinary profile, functioning at the nexus of AI deployment, digital asset creation, and cultural synthesis. Field agent active in converting abstract intel into high-fidelity visual assets. Specializes in integrating grassroots intelligence with future-forward tech. Core belief: genuine advancement is forged from street-level reality, executed with surgical precision, and guided by a deep-coded moral framework.
-                    </div>
+                    </p>
                 </div>
                 <div class="crt-col">
-                    <div class="crt-title"><i class="fa-solid fa-code-branch"></i>CORE PROTOCOLS</div>
+                    <h3 class="section-title"><i class="fa-solid fa-code-branch"></i>CORE PROTOCOLS</h3>
                     <ul class="crt-list">
                         <li><span class="chevron">&gt;&gt;</span>Bottom-Up Innovation // Forged on the Streets</li>
                         <li><span class="chevron">&gt;&gt;</span>Bridging Legacy Systems &amp; The New Age</li>
@@ -918,9 +929,9 @@
         </section>
 
         <!-- FIELD OPERATIONS / EXPERIENCE -->
-        <section class="crt-panel" id="field-ops" style="margin-bottom: 64px; position: relative;">
+        <section class="crt-panel" id="field-ops">
             <div class="scanlines"></div>
-            <h2 class="crt-title" style="margin: 32px 0 0 32px;"><i class="fa-solid fa-person-rifle"></i>// FIELD OPERATIONS: LOG_</h2>
+            <h2 class="section-title"><i class="fa-solid fa-person-rifle"></i>// FIELD OPERATIONS: LOG_</h2>
             <div class="crt-content">
                 <div class="crt-col">
                     <ul class="crt-list">
@@ -957,9 +968,11 @@
                             <div>
                                 <div class="op-title">Event Project Lead (Creative Division) – iBig Creative</div>
                                 <span class="op-meta">2014 - 2016 // Jakarta</span>
-                                <li>Led creative execution for 4+ major events, boosting client satisfaction and repeat business.</li>
-                                <li>Directed 5–10 person teams to deliver all visual and branding targets on time</li>
-                                <li>Oversaw creative workflow from pre- to post-event, ensuring quality deliverables</li>
+                                <ul class="op-details">
+                                    <li>Led creative execution for 4+ major events, boosting client satisfaction and repeat business.</li>
+                                    <li>Directed 5–10 person teams to deliver all visual and branding targets on time.</li>
+                                    <li>Oversaw creative workflow from pre- to post-event, ensuring quality deliverables.</li>
+                                </ul>
                             </div>
                         </li>
                         <li>
@@ -976,175 +989,57 @@
         </section>
 
         <!-- CASE FILES ARCHIVE -->
-        <section id="case-files">
-            <h2 class="crt-title" style="margin-left: 8vw; margin-bottom: 24px;"><i class="fa-solid fa-folder-open"></i>// CASE FILES: ARCHIVE_</h2>
+        <section id="case-files" class="case-archive-wrapper">
+            <h2 class="section-title"><i class="fa-solid fa-folder-open"></i>// CASE FILES: ARCHIVE_</h2>
             <div class="case-archive">
-                 <!-- CASE CARD: BOOK -->
-                <div class="case-card"
-                    data-title="Book: Teori Benang Kosmik"
-                    data-tag="Author"
-                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Teori%20Benang%20Kosmik.png?raw=true"
-                    data-desc="Ongoing authorial project: 'Teori Benang Kosmik'. A book manuscript that aims to unveil the divine code behind creation and the cosmos. This work is currently in the editing process, blending metaphysical concepts with narrative storytelling to explore the universe's foundational principles.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Teori%20Benang%20Kosmik.png?raw=true" alt="Book: Teori Benang Kosmik">
-                        <div class="case-title">Book: Teori Benang Kosmik</div>
-                        <div class="case-tag">Author</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#WRT</div>
-                </div>
-                <!-- CASE CARD: NOVEL -->
-                <div class="case-card"
-                    data-title="Novel: Azhra"
-                    data-tag="Author"
-                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true"
-                    data-desc="Currently writing the novel 'Azhra: Vow of the Quiet Flame'. The story revolves around a father and a dragon who must protect one last light in a dying world. This project is an exploration of themes like sacrifice, hope, and companionship set within a dark fantasy universe.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true" alt="Novel: Azhra">
-                        <div class="case-title">Novel: Azhra</div>
-                        <div class="case-tag">Author</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#NVL</div>
-                </div>
-                <!-- CASE CARD 1 -->
-                <div class="case-card"
-                    data-title="Character Concept: Aria &amp; Kael"
-                    data-tag="AI Art"
-                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true"
-                    data-desc="Original character concept art for Aria &amp; Kael, blending AI-driven illustration with ZZZ-inspired urban motifs. This project involved extensive iteration using various AI models to capture the desired aesthetic and character personalities. The goal was to create visually striking and narrative-rich designs that resonated with the game's gritty, futuristic setting. Each detail, from their attire to their subtle expressions, was carefully crafted to convey their backstory and role within the Zenless Zone Zero universe.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true" alt="ARIA & Kael">
-                        <div class="case-title">Aria &amp; Kael</div>
-                        <div class="case-tag">AI Art</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#001</div>
-                </div>
-                <!-- CASE CARD 2 -->
-                <div class="case-card"
-                    data-title="AI Fashion Collection"
-                    data-tag="AI Art / LoRA"
-                    data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true"
-                    data-desc="A collection of AI-generated fashion concepts using LoRA, fusing streetwear with digital aesthetics. This collection aimed to push the boundaries of virtual fashion design, exploring new silhouettes, textures, and material combinations that would be difficult to realize through traditional methods. The use of LoRA (Low-Rank Adaptation) allowed for fine-tuned control over stylistic elements, resulting in a cohesive yet diverse range of garments suitable for a vibrant, near-future urban environment.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true" alt="AI Fashion Collection">
-                        <div class="case-title">LoRA Woman_Cloth-XL</div>
-                        <div class="case-tag">AI Art / LoRA</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#002</div>
-                </div>
-                <!-- CASE CARD 3 -->
-                <div class="case-card" data-title="R&amp;D: Biomechanical Botany" data-tag="Creative R&amp;D" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" data-desc="Experimental research visuals exploring the intersection of botany and biomechanical design. This R&D initiative delves into speculative biology, envisioning how organic life might integrate with synthetic components in future ecosystems. The visuals showcase intricate designs where plant structures are augmented with mechanical parts, blurring the lines between natural growth and engineered forms. This project aims to spark discussions on bio-engineering, sustainable technology, and the aesthetic potential of hybridized lifeforms.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true" alt="Biomechanical Botany">
-                        <div class="case-title">Biomechanical Botany</div>
-                        <div class="case-tag">Creative R&amp;D</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#003</div>
-                </div>
-                <!-- CASE CARD 4 -->
-                <div class="case-card" data-title="The Holy Grail Workflow" data-tag="AI Workflow" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" data-desc="A visual breakdown of the 'Holy Grail' workflow for AI-powered creative production. This comprehensive guide illustrates a refined process from initial concept generation to final high-fidelity output using advanced AI tools. It covers prompt optimization, iterative refinement, model selection, and post-processing techniques, designed to maximize efficiency and artistic control. The workflow is presented to empower creators in harnessing AI's full potential for generating innovative and professional-grade visual content.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true" alt="Holy Grail Workflow">
-                        <div class="case-title">Holy Grail Workflow</div>
-                        <div class="case-tag">AI Workflow</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#004</div>
-                </div>
-                <!-- CASE CARD 5 -->
-                <div class="case-card" data-title="GAAN - Social QR Game" data-tag="App Concept" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" data-desc="Concept for a social QR-based game, blending urban exploration with digital play. GAAN (Gamified Augmented ANomaly) reimagines cityscapes as interactive playgrounds, where players scan QR codes to unlock narratives, challenges, and virtual collectibles. The game encourages real-world social interaction and exploration, leveraging location-based technologies to create an immersive experience that bridges the physical and digital realms. It's designed to foster community engagement and offer a fresh perspective on urban environments.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true" alt="GAAN QR Game">
-                        <div class="case-title">GAAN - Social QR App</div>
-                        <div class="case-tag">App Concept</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#005</div>
-                </div>
-                <!-- CASE CARD 6 -->
-                <div class="case-card" data-title="GS Shoes - Ghalen Swivel" data-tag="Brand Creator" data-img="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" data-desc="Branding and concept visuals for GS Shoes: Ghalen Swivel, inspired by ZZZ's street-tech style. This project involved developing a complete brand identity, from logo design to promotional imagery, for a fictional footwear line. The aesthetic draws heavily from the raw, cyberpunk-infused urban style of Zenless Zone Zero, incorporating elements of industrial design, graffiti, and futuristic fashion. The goal was to create a brand that feels authentic to the game's universe, appealing to fans and fashion enthusiasts alike with its bold and distinctive visuals.">
-                    <div class="case-img-wrap">
-                        <img class="case-img" src="https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true" alt="GS Shoes">
-                        <div class="case-title">GS Shoes - Ghalen Swivel</div>
-                        <div class="case-tag">Brand Creator</div>
-                    </div>
-                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
-                    <div class="case-graffiti">#006</div>
-                </div>
+                <!-- Case cards will be populated here -->
             </div>
         </section>
 
         <!-- CASE MODAL -->
         <div class="case-modal" id="caseModal">
             <div class="modal-content">
+                <div class="scanlines"></div>
                 <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-                <img id="modalImg" src="" alt="">
-                <div class="modal-title" id="modalTitle"></div>
+                <img id="modalImg" src="" alt="Case File Image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/181a1f/FF00C1?text=Image+Error';">
+                <h3 class="modal-title" id="modalTitle"></h3>
                 <div class="modal-tag" id="modalTag"></div>
-                <div class="modal-desc" id="modalDesc"></div>
+                <p class="modal-desc" id="modalDesc"></p>
             </div>
         </div>
 
         <!-- AGENT LOADOUT / PLUG-INS -->
         <section class="loadout-section" id="loadout">
-            <h2 class="crt-title"><i class="fa-solid fa-plug"></i>// AGENT LOADOUT: PLUG-INS_EQUIPPED</h2>
+            <h2 class="section-title"><i class="fa-solid fa-plug"></i>// AGENT LOADOUT: PLUG-INS_EQUIPPED</h2>
             <div class="loadout-grid">
                 <!-- AI Module -->
                 <div class="loadout-module">
                     <div class="loadout-title"><i class="fa-solid fa-brain"></i>AI & Creative</div>
                     <ul class="skill-list">
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-robot"></i></span>AI Art Generation
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="95"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt Engineering
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="92"></div></div>
-                        </li>
-                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-pen-ruler"></i></span>Creative Direction
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="93"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-book-open"></i></span>Writing
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div>
-                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-robot"></i></span>AI Art Generation<div class="skill-bar-wrap"><div class="skill-bar" data-skill="95"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Prompt Engineering<div class="skill-bar-wrap"><div class="skill-bar" data-skill="92"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-pen-ruler"></i></span>Creative Direction<div class="skill-bar-wrap"><div class="skill-bar" data-skill="93"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-book-open"></i></span>Writing<div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div></li>
                     </ul>
                 </div>
                 <!-- Technical Module -->
                 <div class="loadout-module">
                     <div class="loadout-title"><i class="fa-solid fa-microchip"></i>Technical</div>
                     <ul class="skill-list">
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-code"></i></span>LLM (Large language model)
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-brands fa-figma"></i></span>ComfyUI / Stable Diffusion
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="94"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-file-word"></i></span>Ms. Office
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="83"></div></div>
-                        </li>
-                         <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Photoshop
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="80"></div></div>
-                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-code"></i></span>LLM (Large language model)<div class="skill-bar-wrap"><div class="skill-bar" data-skill="85"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-brands fa-figma"></i></span>ComfyUI / Stable Diffusion<div class="skill-bar-wrap"><div class="skill-bar" data-skill="94"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-file-word"></i></span>Ms. Office<div class="skill-bar-wrap"><div class="skill-bar" data-skill="83"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>Photoshop<div class="skill-bar-wrap"><div class="skill-bar" data-skill="80"></div></div></li>
                     </ul>
                 </div>
                 <!-- Operational Module -->
                 <div class="loadout-module">
                     <div class="loadout-title"><i class="fa-solid fa-screwdriver-wrench"></i>Operational</div>
                     <ul class="skill-list">
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-users"></i></span>Team Leadership
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="90"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span>Field Research & Analysis
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="88"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-handshake"></i></span>Customer Service
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="87"></div></div>
-                        </li>
-                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-truck-fast"></i></span>Logistics
-                            <div class="skill-bar-wrap"><div class="skill-bar" data-skill="89"></div></div>
-                        </li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-users"></i></span>Team Leadership<div class="skill-bar-wrap"><div class="skill-bar" data-skill="90"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></span>Field Research & Analysis<div class="skill-bar-wrap"><div class="skill-bar" data-skill="88"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-handshake"></i></span>Customer Service<div class="skill-bar-wrap"><div class="skill-bar" data-skill="87"></div></div></li>
+                        <li class="skill-item"><span class="skill-icon"><i class="fa-solid fa-truck-fast"></i></span>Logistics<div class="skill-bar-wrap"><div class="skill-bar" data-skill="89"></div></div></li>
                     </ul>
                 </div>
             </div>
@@ -1152,26 +1047,14 @@
 
         <!-- ACADEMICS & CERTIFICATIONS -->
         <section class="loadout-section" id="academics">
-            <h2 class="crt-title"><i class="fa-solid fa-graduation-cap"></i>// ACADEMICS & CERTIFICATIONS: DATA_</h2>
+            <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i>// ACADEMICS & CERTIFICATIONS: DATA_</h2>
             <div class="loadout-grid">
                 <!-- Education Module -->
                 <div class="loadout-module">
                     <div class="loadout-title"><i class="fa-solid fa-school"></i>Education</div>
                      <ul class="crt-list" style="padding-top: 10px;">
-                        <li>
-                            <span class="chevron">&gt;&gt;</span>
-                            <div>
-                                <div class="op-title">Bachelor of Logistics Management</div>
-                                <span class="op-meta">ITL Trisakti // Ongoing</span>
-                            </div>
-                        </li>
-                         <li>
-                            <span class="chevron">&gt;&gt;</span>
-                            <div>
-                                <div class="op-title">SMA IT Al-Halimiyah</div>
-                                <span class="op-meta">Graduated 2012</span>
-                            </div>
-                        </li>
+                        <li><span class="chevron">&gt;&gt;</span><div><div class="op-title">Bachelor of Logistics Management</div><span class="op-meta">ITL Trisakti // Ongoing</span></div></li>
+                        <li><span class="chevron">&gt;&gt;</span><div><div class="op-title">SMA IT Al-Halimiyah</div><span class="op-meta">Graduated 2012</span></div></li>
                     </ul>
                 </div>
                 <!-- Certifications Module -->
@@ -1191,7 +1074,7 @@
         <!-- CONTACT / COMMS-LINK -->
         <section class="contact-section" id="contact">
             <div class="scanlines"></div>
-            <h2 class="contact-title"><i class="fa-solid fa-satellite-dish"></i>// ESTABLISH COMMS-LINK: OPEN_CHANNEL</h2>
+            <h2 class="section-title"><i class="fa-solid fa-satellite-dish"></i>// ESTABLISH COMMS-LINK: OPEN_CHANNEL</h2>
             <div class="contact-links">
                 <a class="contact-btn" href="https://www.linkedin.com/in/mohamad-abrur-alaina" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i>LinkedIn</a>
                 <a class="contact-btn" href="https://github.com/aabrur" target="_blank" rel="noopener"><i class="fab fa-github"></i>GitHub</a>
@@ -1199,31 +1082,96 @@
                 <a class="contact-btn" href="mailto:abrur_nic@yahoo.com"><i class="fa-solid fa-envelope"></i>Email</a>
             </div>
         </section>
-        <div class="graffiti">CUNNING HARES // NEW ERIDU</div>
+        
+        <footer class="graffiti-footer">CUNNING HARES // NEW ERIDU</footer>
     </div>
-    <!-- SCRIPTS -->
+
+    <!-- Audio elements -->
     <audio id="beep" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfae7b2.mp3" preload="auto"></audio>
     <audio id="static" src="https://cdn.pixabay.com/audio/2022/03/15/audio_115b9e2e7c.mp3" preload="auto"></audio>
+    
     <script>
-        // Parallax effect
-        window.addEventListener('scroll', function() {
-            const y = window.scrollY;
-            document.getElementById('parallax-content').style.transform = `translateY(${y * 0.15}px)`;
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- DATA FOR CASE FILES ---
+        const caseFilesData = [
+            {
+                title: "Book: Teori Benang Kosmik",
+                tag: "Author",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/Teori%20Benang%20Kosmik.png?raw=true",
+                desc: "Ongoing authorial project: 'Teori Benang Kosmik'. A book manuscript that aims to unveil the divine code behind creation and the cosmos. This work is currently in the editing process, blending metaphysical concepts with narrative storytelling to explore the universe's foundational principles."
+            },
+            {
+                title: "Novel: Azhra",
+                tag: "Author",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/Azhra%20-%20Vow%20of%20the%20Quiet%20Flame.png?raw=true",
+                desc: "Currently writing the novel 'Azhra: Vow of the Quiet Flame'. The story revolves around a father and a dragon who must protect one last light in a dying world. This project is an exploration of themes like sacrifice, hope, and companionship set within a dark fantasy universe."
+            },
+            {
+                title: "Character Concept: Aria & Kael",
+                tag: "AI Art",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/Aria%20&%20Kael.png?raw=true",
+                desc: "Original character concept art for Aria & Kael, blending AI-driven illustration with ZZZ-inspired urban motifs. This project involved extensive iteration using various AI models to capture the desired aesthetic and character personalities. The goal was to create visually striking and narrative-rich designs that resonated with the game's gritty, futuristic setting."
+            },
+            {
+                title: "AI Fashion Collection",
+                tag: "AI Art / LoRA",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/AI%20Fashion%20Collection-Lora.png?raw=true",
+                desc: "A collection of AI-generated fashion concepts using LoRA, fusing streetwear with digital aesthetics. This collection aimed to push the boundaries of virtual fashion design, exploring new silhouettes, textures, and material combinations. The use of LoRA (Low-Rank Adaptation) allowed for fine-tuned control over stylistic elements."
+            },
+            {
+                title: "R&D: Biomechanical Botany",
+                tag: "Creative R&D",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/R&D%20Biomechanical%20Botany.png?raw=true",
+                desc: "Experimental research visuals exploring the intersection of botany and biomechanical design. This R&D initiative delves into speculative biology, envisioning how organic life might integrate with synthetic components in future ecosystems. The visuals showcase intricate designs where plant structures are augmented with mechanical parts."
+            },
+            {
+                title: "The Holy Grail Workflow",
+                tag: "AI Workflow",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/The%20Holy%20Grail%20Preview.png?raw=true",
+                desc: "A visual breakdown of the 'Holy Grail' workflow for AI-powered creative production. This comprehensive guide illustrates a refined process from initial concept generation to final high-fidelity output using advanced AI tools. It covers prompt optimization, iterative refinement, model selection, and post-processing techniques."
+            },
+            {
+                title: "GAAN - Social QR Game",
+                tag: "App Concept",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/Gaan.png?raw=true",
+                desc: "Concept for a social QR-based game, blending urban exploration with digital play. GAAN (Gamified Augmented ANomaly) reimagines cityscapes as interactive playgrounds, where players scan QR codes to unlock narratives, challenges, and virtual collectibles, encouraging real-world social interaction."
+            },
+            {
+                title: "GS Shoes - Ghalen Swivel",
+                tag: "Brand Creator",
+                img: "https://github.com/aabrur/my-portfolio-assets/blob/main/GS%20Cover%20image.png?raw=true",
+                desc: "Branding and concept visuals for GS Shoes: Ghalen Swivel, inspired by ZZZ's street-tech style. This project involved developing a complete brand identity, from logo design to promotional imagery, for a fictional footwear line. The aesthetic draws heavily from the raw, cyberpunk-infused urban style of Zenless Zone Zero."
+            }
+        ];
 
-        // Screen shake on hover for important elements
-        function addScreenShake(selector) {
-            document.querySelectorAll(selector).forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    document.body.style.transition = 'transform 0.1s';
-                    document.body.style.transform = 'translate(' + (Math.random()*8-4) + 'px,' + (Math.random()*8-4) + 'px)';
-                    setTimeout(() => { document.body.style.transform = ''; }, 120);
-                });
+        // --- DYNAMICALLY CREATE CASE CARDS ---
+        const caseArchiveContainer = document.querySelector('.case-archive');
+        if (caseArchiveContainer) {
+            caseFilesData.forEach(data => {
+                const card = document.createElement('div');
+                card.className = 'case-card';
+                card.setAttribute('data-title', data.title);
+                card.setAttribute('data-tag', data.tag);
+                card.setAttribute('data-img', data.img);
+                card.setAttribute('data-desc', data.desc);
+
+                card.innerHTML = `
+                    <div class="case-img-wrap">
+                        <img class="case-img" src="${data.img}" alt="${data.title}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/260x180/222/FF00C1?text=Load+Error';">
+                    </div>
+                    <div class="case-text-content">
+                        <h3 class="case-title">${data.title}</h3>
+                        <div class="case-tag">${data.tag}</div>
+                    </div>
+                    <button class="view-details-btn"><i class="fa-solid fa-eye"></i> View Details</button>
+                `;
+                caseArchiveContainer.appendChild(card);
             });
         }
-        addScreenShake('.profile-frame, .case-card, .contact-btn');
 
-        // CASE MODAL LOGIC
+        // --- UI ELEMENTS ---
+        const parallaxContent = document.getElementById('parallax-content');
         const modal = document.getElementById('caseModal');
         const modalImg = document.getElementById('modalImg');
         const modalTitle = document.getElementById('modalTitle');
@@ -1231,118 +1179,98 @@
         const modalDesc = document.getElementById('modalDesc');
         const modalClose = document.getElementById('modalClose');
         const staticAudio = document.getElementById('static');
+        const beepAudio = document.getElementById('beep');
 
-        document.querySelectorAll('.case-card').forEach(card => {
-            // New: Event listener for the "View Details" button specifically
-            const viewDetailsBtn = card.querySelector('.view-details-btn');
-            if (viewDetailsBtn) { // Ensure button exists
-                viewDetailsBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent card click event from firing
-                    openModalWithData(card);
-                });
+        // --- EVENT LISTENERS ---
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            if (parallaxContent) {
+                const y = window.scrollY;
+                parallaxContent.style.transform = `translateY(${y * 0.15}px)`;
             }
+        }, { passive: true });
 
-            // Keep the card click for overall usability, but prioritize button
-            card.addEventListener('click', (e) => {
-                // Only open modal if the click wasn't directly on the button
-                if (!e.target.closest('.view-details-btn')) {
-                    openModalWithData(card);
-                }
-            });
-        });
-
-        function openModalWithData(cardElement) {
+        // Modal logic
+        function openModal(cardElement) {
             modalImg.src = cardElement.getAttribute('data-img');
             modalTitle.textContent = cardElement.getAttribute('data-title');
             modalTag.textContent = cardElement.getAttribute('data-tag');
             modalDesc.textContent = cardElement.getAttribute('data-desc');
 
-            // Add scanlines overlay to modal content when active
-            const scanlinesDiv = document.createElement('div');
-            scanlinesDiv.className = 'scanlines';
-            modal.querySelector('.modal-content').appendChild(scanlinesDiv);
-
             modal.classList.add('active');
-            staticAudio.currentTime = 0;
-            staticAudio.play();
+            if (staticAudio) {
+                staticAudio.currentTime = 0;
+                staticAudio.play().catch(e => console.error("Audio play failed:", e));
+            }
         }
 
-        modalClose.addEventListener('click', () => {
-            closeModal();
-        });
-
-        modal.addEventListener('click', e => {
-            if (e.target === modal) { // Close when clicking outside the modal content
-                closeModal();
-            }
-        });
-
-        // New: Function to close modal and clean up
         function closeModal() {
             modal.classList.remove('active');
-            staticAudio.pause();
-            staticAudio.currentTime = 0;
-            // Remove scanlines div when modal closes
-            const existingScanlines = modal.querySelector('.modal-content .scanlines');
-            if (existingScanlines) {
-                existingScanlines.remove();
+            if (staticAudio) {
+                staticAudio.pause();
+                staticAudio.currentTime = 0;
             }
         }
 
-        // Skill bar animation on scroll
-        function animateSkillBars() {
-            document.querySelectorAll('.skill-bar').forEach(bar => {
+        document.querySelectorAll('.case-card').forEach(card => {
+            const viewDetailsBtn = card.querySelector('.view-details-btn');
+            
+            // Prioritize button click
+            if (viewDetailsBtn) {
+                viewDetailsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card click from firing
+                    openModal(card);
+                });
+            }
+            
+            // Allow clicking the whole card as a fallback
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.view-details-btn')) {
+                    openModal(card);
+                }
+            });
+        });
+        
+        if (modalClose) modalClose.addEventListener('click', closeModal);
+        if (modal) {
+            modal.addEventListener('click', e => {
+                if (e.target === modal) closeModal(); // Close on backdrop click
+            });
+        }
+        
+        // Animate skill bars on scroll
+        const skillBars = document.querySelectorAll('.skill-bar');
+        const animateSkillBars = () => {
+            skillBars.forEach(bar => {
                 const rect = bar.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 40) {
+                if (rect.top < window.innerHeight - 40 && bar.style.width === '0px') {
                     bar.style.width = bar.getAttribute('data-skill') + '%';
                 }
             });
-        }
-        window.addEventListener('scroll', animateSkillBars);
-        window.addEventListener('load', animateSkillBars);
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    const bar = entry.target;
+                    bar.style.width = bar.getAttribute('data-skill') + '%';
+                    observer.unobserve(bar); // Stop observing once animated
+                }
+            });
+        }, { threshold: 0.5 });
+        skillBars.forEach(bar => observer.observe(bar));
 
-        // Contact button bounce and beep
-        const beepAudio = document.getElementById('beep');
+        // Sound effect for contact buttons
         document.querySelectorAll('.contact-btn').forEach(btn => {
             btn.addEventListener('mousedown', () => {
-                beepAudio.currentTime = 0;
-                beepAudio.play();
+                if (beepAudio) {
+                    beepAudio.currentTime = 0;
+                    beepAudio.play().catch(e => console.error("Audio play failed:", e));
+                }
             });
         });
 
-        // Glitch transition on scroll between sections
-        let lastSection = null;
-        function glitchTransition() {
-            const sections = document.querySelectorAll('section');
-            let found = null;
-            for (let s of sections) {
-                const rect = s.getBoundingClientRect();
-                if (rect.top < window.innerHeight/2 && rect.bottom > 0) {
-                    found = s;
-                }
-            }
-            if (found && found !== lastSection) {
-                found.classList.add('glitching');
-                setTimeout(() => found.classList.remove('glitching'), 400);
-                lastSection = found;
-            }
-        }
-        window.addEventListener('scroll', glitchTransition);
-
-        // Add glitching style
-        const style = document.createElement('style');
-        style.innerHTML = `
-            section.glitching, .crt-panel.glitching, .contact-section.glitching {
-                filter: contrast(1.2) brightness(1.2) hue-rotate(10deg) blur(1.5px) grayscale(0.2);
-                animation: section-glitch 0.4s;
-            }
-            @keyframes section-glitch {
-                0% { filter: blur(8px) grayscale(1);}
-                100% { filter: contrast(1.2) brightness(1.2) hue-rotate(10deg) blur(1.5px) grayscale(0.2);}
-            }
-        `;
-        document.head.appendChild(style);
+    });
     </script>
 </body>
 </html>
-
